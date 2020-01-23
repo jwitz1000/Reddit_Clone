@@ -13,6 +13,7 @@ app.use(express.static("public"));
 require("./routes/comment-api-routes.js")(app);
 require("./routes/user-api-routes.js")(app);
 require("./routes/post-api-routes.js")(app);
+require("./routes/html-routes.js")(app);
 
 db.sequelize.sync({ force: false }).then(function() {
   app.listen(PORT, function() {
