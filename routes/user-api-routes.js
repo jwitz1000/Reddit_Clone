@@ -3,15 +3,14 @@ var db = require("../models");
 module.exports = function(app) {
   //get all users
   app.get("/api/users", function(req, res) {
-    db.Author.findAll({ include: [db.Post, db.Comment] }).then(function(
-      dbUser
-    ) {
+    console.log("hey");
+    db.User.findAll({ include: [db.Post, db.Comment] }).then(function(dbUser) {
       res.json(dbUser);
     });
   });
   // get specific user
   app.get("/api/users/:id", function(req, res) {
-    db.Author.findOne({
+    db.User.findOne({
       where: {
         id: req.params.id
       },
@@ -29,7 +28,7 @@ module.exports = function(app) {
   });
   // delete user
   app.delete("/api/users/:id", function(req, res) {
-    db.Author.destroy({
+    db.User.destroy({
       where: {
         id: req.params.id
       }

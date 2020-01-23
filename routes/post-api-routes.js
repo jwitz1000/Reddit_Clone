@@ -8,9 +8,9 @@ module.exports = function(app) {
     });
   });
   // all posts for a user
-  app.get("/api/posts/:User_ID", function(req, res) {
+  app.get("/api/posts/:user_ID", function(req, res) {
     db.Post.findAll({
-      where: { UserId: req.params.User_ID },
+      where: { UserId: req.params.user_ID },
       include: [db.User, db.Comment]
     }).then(function(dbPost) {
       res.json(dbPost);
