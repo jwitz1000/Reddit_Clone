@@ -2,7 +2,7 @@ var db = require("../models");
 
 module.exports = function(app) {
   // find all comments on a post
-  app.get("/api/comment/:post_id", function(req, res) {
+  app.get("/api/comments/:post_id", function(req, res) {
     db.Comment.findAll({
       where: { PostId: req.params.post_id }
     }).then(function(dbComment) {
@@ -11,13 +11,13 @@ module.exports = function(app) {
   });
 
   // make a comment
-  app.post("/api/comment", function(req, res) {
+  app.post("/api/comments", function(req, res) {
     db.Comment.create(req.body).then(function(dbComment) {
       res.json(dbComment);
     });
   });
   //delete comment
-  app.delete("/api/comment/:id", function(req, res) {
+  app.delete("/api/comments/:id", function(req, res) {
     db.Comment.destroy({
       where: {
         id: req.params.id
@@ -27,7 +27,7 @@ module.exports = function(app) {
     });
   });
   //update comment
-  app.put("/api/comment", function(req, res) {
+  app.put("/api/comments", function(req, res) {
     db.Comment.update(req.body, {
       where: {
         id: req.body.id
