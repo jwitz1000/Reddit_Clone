@@ -11,12 +11,14 @@ module.exports = function(sequelize, DataTypes) {
     Comment.belongsTo(models.User, {
       foreignKey: {
         allowNull: false
-      }
+      },
+      targetKey: "id"
     });
     Comment.belongsTo(models.Post, {
       foreignKey: {
         allowNull: false
-      }
+      },
+      targetKey: "id"
     });
   };
 
