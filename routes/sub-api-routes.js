@@ -27,7 +27,7 @@ module.exports = function(app) {
     });
   });
 
-  //add a sub
+  //add a sub for a user
   app.put("/api/subs/:subId/:userId", function(req, res) {
     let theSub;
     let theUser;
@@ -36,17 +36,17 @@ module.exports = function(app) {
         id: req.params.subId
       }
     }).then(function(dbSub) {
-      theSub = dbSub.dataValues.userId;
+      theSub = dbSub;
       console.log(dbSub.dataValues);
       db.User.findOne({
         where: {
-          id: req.params.the
+          id: req.params.userId
         }
       }).then(function(dbUser) {
         theUser = dbUser;
         theUser.addSub(theSub);
+        res.send("nice");
       });
-      // db.User.addSub(dbSub.dataValues);
     });
   });
 

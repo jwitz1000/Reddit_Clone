@@ -15,22 +15,10 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   Post.associate = function(models) {
-    Post.belongsTo(models.User, {
-      foreignKey: {
-        allowNull: false
-      },
-      targetKey: "id"
-    });
-    Post.belongsTo(models.Sub, {
-      foreignKey: {
-        allowNull: false
-      },
-      targetKey: "id"
-    });
+    Post.belongsTo(models.User, { onDelete: "cascade" });
+    Post.belongsTo(models.Sub, { onDelete: "cascade" });
     Post.hasMany(models.Comment, {
-      foreignKey: {
-        allowNull: false
-      }
+      onDelete: "cascade"
     });
   };
 

@@ -8,18 +8,8 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   Comment.associate = function(models) {
-    Comment.belongsTo(models.User, {
-      foreignKey: {
-        allowNull: false
-      },
-      targetKey: "id"
-    });
-    Comment.belongsTo(models.Post, {
-      foreignKey: {
-        allowNull: false
-      },
-      targetKey: "id"
-    });
+    Comment.belongsTo(models.User, { onDelete: "cascade" });
+    Comment.belongsTo(models.Post, { onDelete: "cascade" });
   };
 
   return Comment;
