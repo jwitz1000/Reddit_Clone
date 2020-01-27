@@ -26,6 +26,7 @@ require("./routes/comment-api-routes.js")(app);
 require("./routes/user-api-routes.js")(app);
 require("./routes/post-api-routes.js")(app);
 require("./routes/sub-api-routes.js")(app);
+require("./routes/vote-api-routes.js")(app);
 
 require("./routes/html-routes.js")(app);
 

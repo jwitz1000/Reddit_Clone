@@ -28,7 +28,7 @@ module.exports = function(app) {
   });
 
   //add a sub for a user
-  app.put("/api/subs/:subId/:userId", function(req, res) {
+  app.put("/api/subs/:subId/user/:userId", function(req, res) {
     let theSub;
     let theUser;
     db.Sub.findOne({

@@ -57,4 +57,18 @@ module.exports = function() {
   }
 
   commentGenerate(comments);
+
+  let votes = [
+    { PostId: "3", up_vote: true, UserId: "3" },
+    { PostId: "2", up_vote: true, UserId: "2" },
+    { PostId: "1", down_vote: true, UserId: "3" }
+  ];
+
+  function voteGenerate(votes) {
+    for (var i = 0; i < votes.length; i++) {
+      db.Vote.create(votes[i]);
+    }
+  }
+
+  voteGenerate(votes);
 };
