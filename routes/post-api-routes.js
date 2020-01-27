@@ -3,15 +3,17 @@ var db = require("../models");
 module.exports = function(app) {
   // all posts
   app.get("/api/posts", function(req, res) {
-    db.Post.findAll({ include: [db.User, db.Comment] }).then(function(dbPost) {
+    db.Post.findAll({ include: [db.User, db.Comment, db.Vote] }).then(function(
+      dbPost
+    ) {
       res.json(dbPost);
     });
   });
   // all posts for a user
-  app.get("/api/posts/:user_ID", function(req, res) {
+  app.get("/api/posts/user/:user_ID", function(req, res) {
     db.Post.findAll({
       where: { UserId: req.params.user_ID },
-      include: [db.User, db.Comment]
+      include: [db.User, db.Comment, db.Vote]
     }).then(function(dbPost) {
       res.json(dbPost);
     });
@@ -22,7 +24,7 @@ module.exports = function(app) {
       where: {
         id: req.params.id
       },
-      include: [db.User, db.Comment]
+      include: [db.User, db.Comment, db.Vote]
     }).then(function(dbPost) {
       res.json(dbPost);
     });

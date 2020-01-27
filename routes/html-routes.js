@@ -2,20 +2,13 @@ var path = require("path");
 
 // var isAuthenticated = require("../config/middleware/isAuthenticated");
 
-module.exports = function(app) {
-  app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/blog.html"));
-  });
-
-  app.get("/post", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/post.html"));
-  });
-
-  app.get("/user", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/user.html"));
-  });
-
-  app.get("/comments", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/comments.html"));
+// Routes
+// =============================================================
+module.exports = function(app, path) {
+  // send default page to all routes that are undefined
+  app.get("/*", (req, res) => {
+    res.sendFile("/views/post.html", {
+      root: path.join(__dirname, "../public")
+    });
   });
 };

@@ -3,7 +3,6 @@ var db = require("../models");
 module.exports = function(app) {
   //get all subs
   app.get("/api/subs", function(req, res) {
-    console.log("hey");
     db.Sub.findAll({ include: [db.Post, db.User] }).then(function(dbSub) {
       res.json(dbSub);
     });
@@ -45,7 +44,7 @@ module.exports = function(app) {
       }).then(function(dbUser) {
         theUser = dbUser;
         theUser.addSub(theSub);
-        res.send("nice");
+        res.send("sub made");
       });
     });
   });

@@ -1,5 +1,6 @@
 var express = require("express");
 var session = require("express-session");
+var path = require("path");
 
 var passport = require("./config/passport");
 
@@ -28,7 +29,7 @@ require("./routes/post-api-routes.js")(app);
 require("./routes/sub-api-routes.js")(app);
 require("./routes/vote-api-routes.js")(app);
 
-require("./routes/html-routes.js")(app);
+require("./routes/html-routes.js")(app, path);
 
 db.sequelize.sync({ force: true }).then(function() {
   app.listen(PORT, function() {
