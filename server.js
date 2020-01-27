@@ -18,6 +18,9 @@ require("./routes/html-routes.js")(app, path);
 
 db.sequelize.sync({ force: false }).then(function() {
   app.listen(PORT, function() {
+    // require("./seeds.js")()
     console.log("App listening on PORT " + PORT);
   });
 });
+
+

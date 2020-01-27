@@ -1,4 +1,5 @@
-var db = require("../models");
+module.exports = function(){
+var db = require("./models");
 
 let users = [
   { user_name: "A", password: "AA", first_name: "AAA", last_name: "AAAA" },
@@ -41,3 +42,4 @@ function commentGenerate(comments) {
 }
 
 commentGenerate(comments);
+}

@@ -49,12 +49,12 @@ $('#signUp').on("click", event => {
 // event listener for login button
 $(document).on("click", "#login", event => {
   event.preventDefault();
-  let email = $("#recipient-UserName");
-  let pw = $("#recipient-password");
-  if (email.val().trim().length < 1) {
-    email.focus();
-  } else if (pw.val().trim().length < 1) {
-    pw.focus();
+  let userName = $("#recipient-UserName");
+  let passWord = $("#recipient-password");
+  if (userName.val().trim().length < 1) {
+    userName.focus();
+  } else if (passWord.val().trim().length < 1) {
+    passWord.focus();
   } else {
     // set user data to send to server
     let user = {
