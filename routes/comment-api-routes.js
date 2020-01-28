@@ -1,8 +1,15 @@
 var db = require("../models");
 
 module.exports = function(app) {
+  // find all comments
+  app.get("/api/comments", function(req, res) {
+    db.Comment.findAll({}).then(function(dbComment) {
+      res.json(dbComment);
+    });
+  });
+
   // find all comments on a post
-  app.get("/api/comments/:post_id", function(req, res) {
+  app.get("/api/comments/post/:post_id", function(req, res) {
     db.Comment.findAll({
       where: { PostId: req.params.post_id }
     }).then(function(dbComment) {

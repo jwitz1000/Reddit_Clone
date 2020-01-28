@@ -3,14 +3,10 @@
 $("#signUp").on("click", event => {
   event.preventDefault();
   console.log("hello");
-  // let email = $("#recipient-email");
   let firstName = $("#recipient-firstName");
   let lastName = $("#recipient-lastName");
   let userName = $("#recipient-UserName");
   let passWord = $("#recipient-password");
-  // if (email.val().trim().length < 1) {
-  //   email.focus();
-  // }
   if (firstName.val().trim().length < 1) {
     firstName.focus();
   } else if (lastName.val().trim().length < 1) {

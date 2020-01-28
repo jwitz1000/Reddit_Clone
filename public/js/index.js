@@ -24,9 +24,10 @@ let renderPost = (id) => {
 // Render Existing Posts For Feed........................
 let renderPosts = results => {
   console.log(results);
-  let post = $(".post");
+  
   post.empty().append($("<hr>"));
   results.forEach(result => {
+    console.log(results)
     let cardbody = $("<div>").addClass("card-body");
 
     let row1 = $("<div>").addClass("row");
@@ -200,11 +201,11 @@ let updateVote = (data, id) => {
   })
 
 // Post Comment...................
-  // $(".postComment").on("click", event => {
-  //   event.preventDefault();
-  //   window.localStorage.setItem("comment", res.post_id)
+  $(".postComment").on("click", event => {
+    event.preventDefault();
+    window.localStorage.setItem("comment", res.post_id)
     
-  // })
+  })
 // BOLD vote...................
 $(document).on("click", ".voteBtn", event => {
   event.preventDefault();
