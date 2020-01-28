@@ -216,6 +216,13 @@ let updateVote = (data, id) => {
   });
 };
 
+let deleteVote = id => {
+  return $.ajax({
+    url: "/api/votes/" + id,
+    type: "DELETE"
+  });
+};
+
 //========================== Event LIsteners ===========================//
 $(document).on("ready", renderPostFeed());
 
@@ -296,19 +303,25 @@ function changeUserVote(val, userId, postId, data) {
   };
   if (val === "up") {
     if (data[0].up_vote == true) {
-      voteData.up_vote = false;
-    } else if (data[0].up_vote == null || false) {
+      // voteData.up_vote = false;
+      deleteVote(data[0].id);
+    } else if (data[0].up_vote == null || data[0].up_vote == false) {
       voteData.up_vote = true;
+      voteData.down_vote = false;
+
+      updateVote(voteData, data[0].id);
     }
   } else if (val === "down") {
     if (data[0].down_vote == true) {
-      voteData.down_vote = false;
-    } else if (data[0].down_vote == null || false) {
+      deleteVote(data[0].id);
+    } else if (data[0].down_vote == null || data[0].up_vote == false) {
       voteData.down_vote = true;
+      voteData.up_vote = false;
+
+      updateVote(voteData, data[0].id);
     }
   }
   console.log(voteData);
-  updateVote(voteData, data[0].id);
 }
 
 function createUserVote(val, userId, postId) {
