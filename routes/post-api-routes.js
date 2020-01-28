@@ -8,7 +8,7 @@ module.exports = function(app) {
     });
   });
   // all posts for a user
-  app.get("/api/posts/:user_ID", function(req, res) {
+  app.get("/api/posts/user/:user_ID", function(req, res) {
     db.Post.findAll({
       where: { UserId: req.params.user_ID },
       include: [db.User, db.Comment]

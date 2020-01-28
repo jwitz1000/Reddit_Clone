@@ -4,4 +4,4 @@
       $('#post').load('/views/reguser.html')
   } else {
       $('#post').load('/views/create.html')
-  }
+  } 
