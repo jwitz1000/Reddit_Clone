@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Latest compiled and minified CSS & JS -->
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/flatly/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/921619fa71.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Reddit Clone</title>
+  </head>
+  <body>
+    <div id="loggedIn">
+      <nav
+        class="navbar fixed-top navbar-light bg-light"
+        style="height: 3.8rem;"
+      >
+        <span style="font-size: 2rem; color: Tomato; padding: 0;">
+          <i class="fab fa-reddit"></i>
+        </span>
+        <form class="form-inline">
+          <input
+            class="form-control my-2 my-lg-0 mr-sm-5"
+            style="width: 30rem;"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn-light mr-sm-2" type="submit">
+            <i class="fas fa-chart-line"></i>
+          </button>
+          <button class="btn-light my-2 mr-sm-5" type="submit">
+            <i class="fas fa-chart-bar"></i>
+          </button>
+          <br />
+          <button class="btn-light" type="submit">
+            <i class="fas fa-comment-dots"></i>
+          </button>
+          <button class="btn-light" type="submit">
+            <i class="fas fa-envelope"></i>
+          </button>
+          <button class="btn-light" type="submit">
+            <i class="fas fa-edit"></i>
+          </button>
+        </form>
+        <div class="dropdown">
+          <button
+            class="btn btn-outline-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            User Name
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div id="notLoggedIn">
+      <nav
+        class="navbar fixed-top navbar-light bg-light"
+        style="height: 3.8rem;"
+      >
+        <span style="font-size: 2rem; color: Tomato; padding: 0;">
+          <i class="fab fa-reddit"></i>
+        </span>
+        <form class="form-inline">
+          <input
+            class="form-control my-2 my-lg-0 mr-sm-5"
+            style="width: 30rem;"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#exampleModal1"
+            data-whatever="@mdo"
+          >
+            Login
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#exampleModal2"
+            data-whatever="@mdo"
+          >
+            Sign Up
+          </button>
+        </form>
+        <div class="dropdown mr-10">
+          <a
+            class="btn btn-outline-secondary dropdown-toggle mr-10px"
+            href="#"
+            role="button"
+            id="dropdownMenuLink"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i
+              class="fas fa-user mr-5px"
+              style="color: rgb(173, 173, 173);"
+            ></i>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div
+      class="modal fade"
+      id="exampleModal1"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label"
+                  >User Name:</label
+                >
+                <!-- BOLD -->
+                <input
+                  type="text"
+                  class="form-control"
+                  id="recipient-UserName1"
+                />
+              </div>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label"
+                  >Password:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="recipient-password1"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" id="login">
+              login
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="exampleModal2"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label"
+                  >First Name:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="recipient-firstName"
+                />
+              </div>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label"
+                  >Last Name:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="recipient-lastName"
+                />
+              </div>
+              <!-- <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Email:</label>
+                    <input type="text" class="form-control" id="recipient-email">
+                  </div> -->
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label"
+                  >User Name:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="recipient-UserName"
+                />
+              </div>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label"
+                  >Password:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="recipient-password"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" id="signUp">
+              Create Account
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- CHANGE BELOW HERE ONLY -->
+    <div class="container">
+      <br />
+      <br />
+      <br />
+      <br />
+      <div class="row">
+        <div class="creatPostBar col-10 float-center">
+          <form class="form-inline my-2 my-lg-0">
+            <input
+              class="form-control mr-sm-2"
+              style="width: 25rem;"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button
+              class="btn btn-secondary my-2 my-sm-0"
+              style="width: 3rem;"
+              type="submit"
+            >
+              <i class="fas fa-image"></i>
+            </button>
+            <button
+              class="btn btn-secondary my-2 my-sm-0"
+              style="width: 3rem;"
+              type="submit"
+            >
+              <i class="fas fa-link"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 ">
+          <div class="post"></div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment.min.js"
+      type="text/javascript"
+    ></script>
+    <script src="js/account.js" type="text/javascript"></script>
+    <!-- change line below -->
+    <script src="js/index.js" type="text/javascript"></script>
+  </body>
+</html>

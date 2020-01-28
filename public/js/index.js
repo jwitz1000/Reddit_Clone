@@ -1,5 +1,17 @@
+//check if log in
+if (window.localStorage.getItem("user")) {
+  $("#loggedIn").css("display", "block");
+  $("#notLoggedIn").css("display", "none");
+} else {
+  $("#notLoggedIn").css("display", "block");
+  $("#loggedIn").css("display", "none");
+}
+
+// Dependencies................
 let userId = localStorage.getItem("user");
 
+// Global varibles.............
+let post = $(".post");
 //============================== Functionality ========================//
 let renderPostFeed = () => {
   getPosts().then(results => {
@@ -7,74 +19,80 @@ let renderPostFeed = () => {
   });
 };
 
-// Global varibles.............
-let post = $(".post");
-
-// Calling render functions for comments page.............
-let renderCommentPage = () => {
-  getPostComments().then(res => {
-    renderComments(res);
-  });
-};
-let renderPost = id => {
-  getSinglePost(id).then(res => {
-    renderSinglePost(res);
-  });
-};
-
-// Render Existing Posts ........................
+// Render Existing Posts For Feed........................
 let renderPosts = results => {
   console.log(results);
   post.empty().append($("<hr>"));
   results.forEach(result => {
-    let cardbody = $("<div>").addClass("card-body");
+    console.log(results);
+    let cardbody = $("<div>").addClass("card-body p-0");
 
     let row1 = $("<div>").addClass("row");
-    let col1 = $("<div>").addClass("col-sm-4");
-    let col2 = $("<div>").addClass("col-sm-8");
+    let col1 = $("<div>").addClass("col-sm-1");
+    let col2 = $("<div>").addClass("col-sm-11");
 
-    let leftRow1 = $("<div>").addClass("row");
-    let leftRow2 = $("<div>").addClass("row");
-    let leftRow3 = $("<div>").addClass("row");
+    let leftRow1 = $("<div>").addClass("row justify-content-center");
+    let leftRow2 = $("<div>").addClass("row justify-content-center");
+    let leftRow3 = $("<div>").addClass("row justify-content-center");
 
     let upVote = $("<button>")
-      .addClass("voteBtn btn btn-primary ")
+      .addClass("voteBtn btn btn-link text-dark fas fa-long-arrow-alt-up")
       .data("postId", result.id)
-      .attr("value", "up")
-      .text("upvote");
-    let votes = $("<div>").text(result.Votes.length + "votes");
+      .attr("value", "up");
+    let votes = $("<div>").text(result.Votes.length);
     let downVote = $("<button>")
-      .addClass("voteBtn btn btn-primary ")
+      .addClass("voteBtn btn btn-link text-dark fas fa-long-arrow-alt-down")
       .data("postId", result.id)
-      .attr("value", "down")
-      .text("downvote");
-
-    // voteOnPost(results.id).then(function(data) {
-    //   console.log(data);
-    //   votes.text(data.length + " votes");
-    // });
+      .attr("value", "down");
 
     leftRow1.append(upVote);
     leftRow2.append(votes);
     leftRow3.append(downVote);
+
+    let rightRow1 = $("<div>").addClass("row");
+    let rightRow2 = $("<div>").addClass("row");
+    let rightRow3 = $("<div>").addClass("row");
+
+    let posterInfo = $("<div>").html(
+      "Posted in <a class = subLink id = " +
+        result.Sub.id +
+        " href='/subs'>" +
+        result.Sub.title +
+        "</a> by " +
+        result.User.user_name +
+        " at " +
+        result.createdAt
+    );
+    rightRow1.append(posterInfo);
 
     let title = $("<h5>")
       .addClass("mb-0")
       .text(result.title);
 
     let body = $("<p>")
-      .addClass("card-text")
+      .addClass("card-text text-muted")
       .text(result.body);
 
+    rightRow2.append(title, body);
+
+    let commentDiv = $("<div>").addClass("font-weight-bold text-secondary");
+    let commentIcon = $("<i>").addClass("fas fa-comment");
     let btn = $("<a href='/comments'>")
-      .addClass("comment link secondary")
+      .addClass("comment secondary font-weight-bolder text-secondary")
       .data("id", result.id)
       .text(result.Comments.length + " Comments");
+    commentDiv.append(commentIcon, btn);
+    rightRow3.append(commentDiv);
 
-    cardbody.append(title, body, $("<hr>"), btn);
+    cardbody.append(rightRow1, rightRow2, rightRow3);
     col2.append(cardbody);
     col1.append(leftRow1, leftRow2, leftRow3);
     row1.append(col1, col2);
+
+    // cardbody.append(title, body, $("<hr>"), commentDiv);
+    // col2.append(cardbody);
+    // col1.append(leftRow1, leftRow2, leftRow3);
+    // row1.append(col1, col2);
 
     let card = $("<div>")
       .addClass("card mb-3")
@@ -83,73 +101,15 @@ let renderPosts = results => {
   });
 };
 
-// Render Single Post ........................
-let renderSinglePost = res => {
-  console.log(res);
-  post.empty();
-  let singlePost = $(".postId");
-  singlePost.empty();
-  let cardbody = $("<div>").addClass("card-body");
-  let title = $("<h5>")
-    .addClass("mb-0")
-    .text(res.title);
-  let body = $("<p>")
-    .addClass("card-text")
-    .text(res.body);
-  let btn = $("<a href='/comments'>")
-    .addClass("comment link secondary")
-    .data("id", res.id)
-    .text("Comment");
-  cardbody.append(title, body, $("<hr>"), btn);
-  let card = $("<div>")
-    .addClass("card mb-3")
-    .append(cardbody);
-  singlePost.append(card);
-};
-// function to render components for a post
-let renderComments = res => {
-  console.log(res);
-  post.empty();
-  let comment = $(".comment");
-  comment.empty();
-  res.forEach(results => {
-    let commentList = $("<div>").addClass("commentList");
-    let commentRow = $("<div>").addClass("row");
-    let btnRow = $("<div>").addClass("row");
-    let userName = $("<p>")
-      .addClass("font-weight-light")
-      .text(results.user_name);
-    let userComment = $("<p>")
-      .addClass("font-weight-normal")
-      .text(results.comments);
-    let replybtn = $("<a href='#'>")
-      .addClass("link secondary font-weight-bold")
-      .text("Reply");
-    let awardbtn = $("<a href='#'>")
-      .addClass("link secondary font-weight-bold")
-      .text("Give Award");
-    let sharebtn = $("<a href='#'>")
-      .addClass("link secondary font-weight-bold")
-      .text("Share");
-    let savebtn = $("<a href='#'>")
-      .addClass("link secondary font-weight-bold")
-      .text("Save");
-    commentRow.append(userName, $("<hr>"), userComment);
-    btnRow.append(replybtn, awardbtn, sharebtn, savebtn);
-    commentList.append(commentRow, btnRow);
-  });
-};
-
 //=============================== API Calls =============================//
 
-// Posts............
+// Get all Posts............
 let getPosts = () => {
   return $.ajax({
     url: "/api/posts",
     type: "GET"
   });
 };
-
 //Create Post ...............
 let createPost = data => {
   return $.ajax({
@@ -158,32 +118,6 @@ let createPost = data => {
     data: data
   });
 };
-
-// Get Single Posts............
-let getSinglePost = id => {
-  return $.ajax({
-    url: "/api/posts/" + id,
-    type: "GET"
-  });
-};
-
-// Comments............
-let commentOnPost = data => {
-  return $.ajax({
-    url: "/api/comments/",
-    type: "POST",
-    data: data
-  });
-};
-
-// Get all Comments for a single post............
-let getPostComments = id => {
-  return $.ajax({
-    url: "/api/posts/" + id,
-    type: "GET"
-  });
-};
-
 // votes.....
 
 let voteOnPost = id => {
@@ -222,57 +156,19 @@ let deleteVote = id => {
     type: "DELETE"
   });
 };
-
 //========================== Event LIsteners ===========================//
+
+//onclick for main post feed on reguser.html......
 $(document).on("ready", renderPostFeed());
 
-// LogOut...................
+// onclick for user to LogOut of their account.......
 $(".logout").on("click", event => {
   event.preventDefault();
   window.localStorage.removeItem("user");
   window.location.reload();
 });
-// Comment...................
-$(".comment").on("click", event => {
-  event.preventDefault();
-  renderComments();
-});
-// Post Comment...................
-$(".postComment").on("click", event => {
-  event.preventDefault();
-  window.localStorage.setItem("comment", res.post_id);
-});
 
-// create post............
-$(document).on("click", ".create", event => {
-  event.preventDefault();
-  renderContent("create");
-});
-
-// create post
-$(document).on("click", ".createPost", event => {
-  event.preventDefault();
-  let postT = $("#post-title")
-    .val()
-    .trim();
-  let postD = $("#post-description")
-    .val()
-    .trim();
-  if (postT.length < 1) {
-    $("#post-title").focus();
-  } else if (postD.length < 1) {
-    $("#post-description").focus();
-  } else {
-    let data = {
-      title: postT,
-      body: postD
-    };
-    createPost(data).then(() => {
-      renderContent("myposts");
-    });
-  }
-});
-
+//========================= VOTES =================================//
 //  vote functions...................
 $(document).on("click", ".voteBtn", event => {
   event.preventDefault();

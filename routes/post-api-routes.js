@@ -3,11 +3,12 @@ var db = require("../models");
 module.exports = function(app) {
   // all posts
   app.get("/api/posts", function(req, res) {
-    db.Post.findAll({ include: [db.User, db.Comment, db.Vote] }).then(function(
-      dbPost
-    ) {
-      res.json(dbPost);
-    });
+    //add subs to these queries BOLD
+    db.Post.findAll({ include: [db.User, db.Comment, db.Vote, db.Sub] }).then(
+      function(dbPost) {
+        res.json(dbPost);
+      }
+    );
   });
   // all posts for a user
   app.get("/api/posts/user/:user_ID", function(req, res) {
