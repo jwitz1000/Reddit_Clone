@@ -11,7 +11,7 @@ let renderPostFeed = () => {
     })
 }
 // Calling render functions for comments page.............
-let renderCommentPage = () => {
+let renderCommentPage = (id) => {
     getPostComments().then(res => {
     renderComments(res)
   })
@@ -24,27 +24,26 @@ let renderPost = (id) => {
 // Render Existing Posts For Feed........................
 let renderPosts = results => {
   console.log(results);
-  
   post.empty().append($("<hr>"));
   results.forEach(result => {
     console.log(results)
-    let cardbody = $("<div>").addClass("card-body");
+    let cardbody = $("<div>").addClass("card-body p-0");
 
     let row1 = $("<div>").addClass("row");
-    let col1 = $("<div>").addClass("col-sm-4");
-    let col2 = $("<div>").addClass("col-sm-8");
+    let col1 = $("<div>").addClass("col-sm-1");
+    let col2 = $("<div>").addClass("col-sm-11");
 
-    let leftRow1 = $("<div>").addClass("row");
-    let leftRow2 = $("<div>").addClass("row");
-    let leftRow3 = $("<div>").addClass("row");
+    let leftRow1 = $("<div>").addClass("row float-right");
+    let leftRow2 = $("<div>").addClass("row justify-content-center");
+    let leftRow3 = $("<div>").addClass("row float-right");
 
     let upVote = $("<button>")
-      .addClass("voteBtn btn btn-primary ")
+      .addClass("voteBtn btn btn-link text-dark fas fa-long-arrow-alt-up")
       .data("postId", result.id)
       .attr("value", "up")
-      .text("upvote");
-    let votes = $("<div>").text(result.Votes.length + "votes");
-    let downVote = $("<button>").addClass("voteBtn btn btn-primary ");
+      // .text("upvote");
+    let votes = $("<div>").text(result.Votes.length);
+    let downVote = $("<button>").addClass("voteBtn btn btn-link text-dark fas fa-long-arrow-alt-down");
 
     // voteOnPost(results.id).then(function(data) {
     //   console.log(data);
@@ -60,15 +59,17 @@ let renderPosts = results => {
       .text(result.title);
 
     let body = $("<p>")
-      .addClass("card-text")
+      .addClass("card-text text-muted")
       .text(result.body);
 
+    let commentDiv = $("<div>").addClass("font-weight-bold text-secondary")
+    let commentIcon = $("<i>").addClass("fas fa-comment")
     let btn = $("<a href='/comments'>")
-      .addClass("comment link secondary")
+      .addClass("comment secondary font-weight-bolder text-secondary")
       .data("id", result.id)
       .text(result.Comments.length + " Comments");
-
-    cardbody.append(title, body, $("<hr>"), btn);
+    commentDiv.append(commentIcon, btn)
+    cardbody.append(title, body, $("<hr>"), commentDiv);
     col2.append(cardbody);
     col1.append(leftRow1, leftRow2, leftRow3);
     row1.append(col1, col2);
@@ -182,10 +183,10 @@ let updateVote = (data, id) => {
   $(document).on("ready", renderPostFeed())
   
   // onclick for creating a comment on post card.....
-  $(document).on("click", ".comments", event => {
+  $(document).on("click", ".comment", event => {
     event.preventDefault();
     window.localStorage.setItem("post", id);
-    renderComments(a)
+    renderComments(id)
   });
   // onclick for each post to view that post........
   $(document).on("click", ".singlePost", event => {
@@ -206,7 +207,7 @@ let updateVote = (data, id) => {
     window.localStorage.setItem("comment", res.post_id)
     
   })
-// BOLD vote...................
+//  Vote onclick...................
 $(document).on("click", ".voteBtn", event => {
   event.preventDefault();
 
