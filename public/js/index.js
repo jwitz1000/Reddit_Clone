@@ -7,11 +7,24 @@ let renderPostFeed = () => {
   });
 };
 
-// BOLD Render Existing Posts ........................
+// Global varibles.............
+let post = $(".post");
+
+// Calling render functions for comments page.............
+let renderCommentPage = () => {
+  getPostComments().then(res => {
+    renderComments(res);
+  });
+};
+let renderPost = id => {
+  getSinglePost(id).then(res => {
+    renderSinglePost(res);
+  });
+};
+
+// Render Existing Posts ........................
 let renderPosts = results => {
-  //come back and do a .then() for the comments
   console.log(results);
-  let post = $(".post");
   post.empty().append($("<hr>"));
   results.forEach(result => {
     let cardbody = $("<div>").addClass("card-body");
@@ -30,7 +43,11 @@ let renderPosts = results => {
       .attr("value", "up")
       .text("upvote");
     let votes = $("<div>").text(result.Votes.length + "votes");
-    let downVote = $("<button>").addClass("voteBtn btn btn-primary ");
+    let downVote = $("<button>")
+      .addClass("voteBtn btn btn-primary ")
+      .data("postId", result.id)
+      .attr("value", "down")
+      .text("downvote");
 
     // voteOnPost(results.id).then(function(data) {
     //   console.log(data);
@@ -65,25 +82,62 @@ let renderPosts = results => {
     post.append(card);
   });
 };
-// function to render components for the side nav display
-let renderComments = () => {
-  let userComment = $(".comment");
-  let userN = $("<p>")
-    .addClass("text-left")
-    .text("Comment as" + result.user_name);
-  let input = $("<input>")
-    .addClass("nav-link btn events")
-    .text("What are your thoughts?");
-  let btn = $("<button>")
-    .addClass("nav-link btn myevents")
-    .text("Post");
-  let commentCol = $("<div>")
-    .addClass("col-6")
-    .append(userN, input, btn);
-  let commentRow = $("<div>")
-    .addClass("row")
-    .append(commentCol);
-  userComment.empty().append(commentRow);
+
+// Render Single Post ........................
+let renderSinglePost = res => {
+  console.log(res);
+  post.empty();
+  let singlePost = $(".postId");
+  singlePost.empty();
+  let cardbody = $("<div>").addClass("card-body");
+  let title = $("<h5>")
+    .addClass("mb-0")
+    .text(res.title);
+  let body = $("<p>")
+    .addClass("card-text")
+    .text(res.body);
+  let btn = $("<a href='/comments'>")
+    .addClass("comment link secondary")
+    .data("id", res.id)
+    .text("Comment");
+  cardbody.append(title, body, $("<hr>"), btn);
+  let card = $("<div>")
+    .addClass("card mb-3")
+    .append(cardbody);
+  singlePost.append(card);
+};
+// function to render components for a post
+let renderComments = res => {
+  console.log(res);
+  post.empty();
+  let comment = $(".comment");
+  comment.empty();
+  res.forEach(results => {
+    let commentList = $("<div>").addClass("commentList");
+    let commentRow = $("<div>").addClass("row");
+    let btnRow = $("<div>").addClass("row");
+    let userName = $("<p>")
+      .addClass("font-weight-light")
+      .text(results.user_name);
+    let userComment = $("<p>")
+      .addClass("font-weight-normal")
+      .text(results.comments);
+    let replybtn = $("<a href='#'>")
+      .addClass("link secondary font-weight-bold")
+      .text("Reply");
+    let awardbtn = $("<a href='#'>")
+      .addClass("link secondary font-weight-bold")
+      .text("Give Award");
+    let sharebtn = $("<a href='#'>")
+      .addClass("link secondary font-weight-bold")
+      .text("Share");
+    let savebtn = $("<a href='#'>")
+      .addClass("link secondary font-weight-bold")
+      .text("Save");
+    commentRow.append(userName, $("<hr>"), userComment);
+    btnRow.append(replybtn, awardbtn, sharebtn, savebtn);
+    commentList.append(commentRow, btnRow);
+  });
 };
 
 //=============================== API Calls =============================//
@@ -96,6 +150,7 @@ let getPosts = () => {
   });
 };
 
+//Create Post ...............
 let createPost = data => {
   return $.ajax({
     url: "/api/posts",
@@ -103,6 +158,15 @@ let createPost = data => {
     data: data
   });
 };
+
+// Get Single Posts............
+let getSinglePost = id => {
+  return $.ajax({
+    url: "/api/posts/" + id,
+    type: "GET"
+  });
+};
+
 // Comments............
 let commentOnPost = data => {
   return $.ajax({
@@ -112,7 +176,16 @@ let commentOnPost = data => {
   });
 };
 
-// BOLD votes.....
+// Get all Comments for a single post............
+let getPostComments = id => {
+  return $.ajax({
+    url: "/api/posts/" + id,
+    type: "GET"
+  });
+};
+
+// votes.....
+
 let voteOnPost = id => {
   return $.ajax({
     url: "/api/votes/post/" + id,
@@ -193,7 +266,7 @@ $(document).on("click", ".createPost", event => {
   }
 });
 
-// BOLD vote...................
+//  vote functions...................
 $(document).on("click", ".voteBtn", event => {
   event.preventDefault();
 
@@ -209,14 +282,33 @@ function checkUserVoter(val, userId, postId) {
   checkIfUserVoted(postId, userId).then(function(data) {
     console.log(data);
     if (data.length != 0) {
-      changeUserVote(val, userId, postId);
+      changeUserVote(val, userId, postId, data);
     } else {
       createUserVote(val, userId, postId);
     }
   });
 }
-function changeUserVote(val, userId, postId) {
-  console.log("yolo");
+function changeUserVote(val, userId, postId, data) {
+  // console.log(val);
+  let voteData = {
+    UserId: userId,
+    PostId: postId
+  };
+  if (val === "up") {
+    if (data[0].up_vote == true) {
+      voteData.up_vote = false;
+    } else if (data[0].up_vote == null || false) {
+      voteData.up_vote = true;
+    }
+  } else if (val === "down") {
+    if (data[0].down_vote == true) {
+      voteData.down_vote = false;
+    } else if (data[0].down_vote == null || false) {
+      voteData.down_vote = true;
+    }
+  }
+  console.log(voteData);
+  updateVote(voteData, data[0].id);
 }
 
 function createUserVote(val, userId, postId) {
@@ -231,7 +323,7 @@ function createUserVote(val, userId, postId) {
     });
   } else if (val === "down") {
     let voteData = {
-      up_down: true,
+      down_vote: true,
       PostId: postId,
       UserId: userId
     };

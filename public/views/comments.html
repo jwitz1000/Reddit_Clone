@@ -1,35 +1,60 @@
 <nav class="navbar fixed-top navbar-light bg-light" style="height: 3.8rem;">
-    <span style="font-size: 2rem; color: Tomato; padding: 0;">
+  <span style="font-size: 2rem; color: Tomato; padding: 0;">
     <i class="fab fa-reddit"></i>
   </span>
-    <form class="form-inline">
-      <input class="form-control my-2 my-lg-0 mr-sm-5" style="width: 30rem;" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn-light mr-sm-2" type="submit"><i class="fas fa-chart-line"></i></button>
-      <button class="btn-light my-2 mr-sm-5" type="submit"><i class="fas fa-chart-bar"></i></button>
-      <br>
-      <button class="btn-light" type="submit"><i class="fas fa-comment-dots"></i></button>
-      <button class="btn-light" type="submit"><i class="fas fa-envelope"></i></button>
-      <button class="btn-light" type="submit"><i class="fas fa-edit"></i></button>
-    </form>
-    <div class="dropdown">
-      <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        User Name
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-      </div>
-    </div>
-  </nav>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 ">
-      <div class="postId"></div>
-      <div class="comment"></div>
-      </div>
+  <form class="form-inline">
+    <input
+      class="form-control my-2 my-lg-0 mr-sm-5"
+      style="width: 30rem;"
+      type="search"
+      placeholder="Search"
+      aria-label="Search"
+    />
+    <button class="btn-light mr-sm-2" type="submit">
+      <i class="fas fa-chart-line"></i>
+    </button>
+    <button class="btn-light my-2 mr-sm-5" type="submit">
+      <i class="fas fa-chart-bar"></i>
+    </button>
+    <br />
+    <button class="btn-light" type="submit">
+      <i class="fas fa-comment-dots"></i>
+    </button>
+    <button class="btn-light" type="submit">
+      <i class="fas fa-envelope"></i>
+    </button>
+    <button class="btn-light" type="submit"><i class="fas fa-edit"></i></button>
+  </form>
+  <div class="dropdown">
+    <button
+      class="btn btn-outline-secondary dropdown-toggle"
+      type="button"
+      id="dropdownMenuButton"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      User Name
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="#">Action</a>
+      <a class="dropdown-item" href="#">Another action</a>
+      <a class="dropdown-item" href="#">Something else here</a>
     </div>
   </div>
-  <!-- Custom Script -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment.min.js" type="text/javascript"></script>
-  <script src="js/index.js" type="text/javascript"></script>
+</nav>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 ">
+      <div class="post"></div>
+      <div class="postId"></div>
+      <div class="comment"></div>
+    </div>
+  </div>
+</div>
+<!-- Custom Script -->
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment.min.js"
+  type="text/javascript"
+></script>
+<script src="js/index.js" type="text/javascript"></script>
