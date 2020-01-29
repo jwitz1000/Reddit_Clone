@@ -7,11 +7,24 @@ module.exports = function(app) {
       res.json(dbSub);
     });
   });
-  // get specific Sub
-  app.get("/api/subs/:id", function(req, res) {
+
+  // get specific Sub by id
+  app.get("/api/subs/id/:id", function(req, res) {
     db.Sub.findOne({
       where: {
         id: req.params.id
+      },
+      include: [db.Post, db.User]
+    }).then(function(dbSub) {
+      res.json(dbSub);
+    });
+  });
+
+  // get specific Sub by name
+  app.get("/api/subs/name/:title", function(req, res) {
+    db.Sub.findOne({
+      where: {
+        title: req.params.title
       },
       include: [db.Post, db.User]
     }).then(function(dbSub) {

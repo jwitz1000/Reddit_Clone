@@ -54,14 +54,10 @@ let renderPosts = results => {
     let rightRow3 = $("<div>").addClass("row");
 
     let posterInfo = $("<div>").html(
-      "Posted in <a class = subLink id = " +
-        result.Sub.id +
-        " href='/subs'>" +
-        result.Sub.title +
-        "</a> by " +
-        result.User.user_name +
-        " at " +
-        result.createdAt
+      `Posted in <a class = subLink id =${result.Sub.id} href='/subs/${result.Sub.title}'> ${result.Sub.title} 
+        </a> by 
+        ${result.User.user_name}
+        at ${result.createdAt}`
     );
     rightRow1.append(posterInfo);
 
@@ -77,7 +73,7 @@ let renderPosts = results => {
 
     let commentDiv = $("<div>").addClass("font-weight-bold text-secondary");
     let commentIcon = $("<i>").addClass("fas fa-comment");
-    let btn = $("<a href='/comments'>")
+    let btn = $(`<a href='/posts/${result.id}'>`)
       .addClass("comment secondary font-weight-bolder text-secondary")
       .data("id", result.id)
       .text(result.Comments.length + " Comments");
@@ -161,11 +157,8 @@ let deleteVote = id => {
 //onclick for main post feed on reguser.html......
 $(document).on("ready", renderPostFeed());
 
-// onclick for user to LogOut of their account.......
-$(".logout").on("click", event => {
-  event.preventDefault();
-  window.localStorage.removeItem("user");
-  window.location.reload();
+$(document).on("click", "#createPost", event => {
+  window.location.href = "/create";
 });
 
 //========================= VOTES =================================//

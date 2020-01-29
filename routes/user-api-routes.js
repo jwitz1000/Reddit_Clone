@@ -19,6 +19,20 @@ module.exports = function(app) {
       res.json(dbUser);
     });
   });
+
+  // BOLDDDDget specific user by user_name and pass
+  app.get("/api/users/:user/pass/:pass", function(req, res) {
+    db.User.findOne({
+      where: {
+        password: req.params.pass,
+        user_name: req.params.user
+      },
+      include: [db.Post, db.Comment]
+    }).then(function(dbUser) {
+      res.json(dbUser);
+    });
+  });
+
   //create new user
   app.post("/api/users", function(req, res) {
     //need body to be object with correct params for

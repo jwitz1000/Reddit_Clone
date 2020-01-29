@@ -9,33 +9,61 @@ if (window.localStorage.getItem("user")) {
 
 // Dependencies................
 let userId = localStorage.getItem("user");
+let post = $(".post");
 
-// create post............
-$(document).on("click", ".create", event => {
-  event.preventDefault();
-  renderContent("create");
-});
+//load subs
+$(document).on("ready", renderSubs());
+
+//render subs
+function renderSubs() {
+  let optionList = $("#subId");
+  $.ajax({
+    url: "/api/subs",
+    type: "GET"
+  }).then(res => {
+    console.log(res);
+    res.forEach(result => {
+      let option = $("<option>")
+        .text(result.title)
+        .data("id", result.id);
+      optionList.append(option);
+    });
+  });
+}
 
 // create post..........
 $(document).on("click", ".createPost", event => {
   event.preventDefault();
-  let postT = $("#post-title")
-    .val()
-    .trim();
-  let postD = $("#post-description")
-    .val()
-    .trim();
-  if (postT.length < 1) {
-    $("#post-title").focus();
-  } else if (postD.length < 1) {
-    $("#post-description").focus();
-  } else {
+
+  let subTitle = $("#subId").val();
+
+  $.ajax({
+    url: "/api/subs/name/" + subTitle,
+    type: "GET"
+  }).then(res => {
+    let subId = res.id;
+    let postT = $("#post-title")
+      .val()
+      .trim();
+    let postD = $("#post-description")
+      .val()
+      .trim();
+
     let data = {
+      UserId: userId,
+      SubId: subId,
       title: postT,
       body: postD
     };
-    createPost(data).then(() => {
-      renderContent("myposts");
+    console.log(data);
+
+    $.ajax({
+      url: "/api/posts",
+      type: "POST",
+      data: data
+    }).then(res => {
+      console.log(res);
+      // add redirect to post
     });
-  }
+  });
 });

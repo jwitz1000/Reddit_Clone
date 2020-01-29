@@ -14,7 +14,7 @@ module.exports = function(app) {
   app.get("/api/posts/user/:user_ID", function(req, res) {
     db.Post.findAll({
       where: { UserId: req.params.user_ID },
-      include: [db.User, db.Comment, db.Vote]
+      include: [db.User, db.Comment, db.Vote, db.Sub]
     }).then(function(dbPost) {
       res.json(dbPost);
     });
@@ -25,7 +25,7 @@ module.exports = function(app) {
       where: {
         id: req.params.id
       },
-      include: [db.User, db.Comment, db.Vote]
+      include: [db.User, db.Comment, db.Vote, db.Sub]
     }).then(function(dbPost) {
       res.json(dbPost);
     });

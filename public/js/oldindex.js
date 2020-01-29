@@ -74,6 +74,17 @@ let renderPosts = results => {
     );
     rightRow1.append(posterInfo);
 
+    // let posterInfo = $("<div>").html(
+    //   "Posted in <a class = subLink id = " +
+    //     result.Sub.id +
+    //     " href='/subs'>" +
+    //     result.Sub.title +
+    //     "</a> by " +
+    //     result.User.user_name +
+    //     " at " +
+    //     result.createdAt
+    // );
+
     let title = $("<h5>")
       .addClass("mb-0")
       .text(result.title);

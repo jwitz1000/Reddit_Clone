@@ -1,3 +1,14 @@
+// Dependencies................
+let userIdForButtons = localStorage.getItem("user");
+
+// setting name in nav bar top right
+$.ajax({
+  url: "/api/users/" + userIdForButtons,
+  type: "GET"
+}).then(res => {
+  let userButton = $("#dropdownMenuButton").text(res.user_name);
+});
+
 //listener for signup button
 $("#signUp").on("click", event => {
   event.preventDefault();
@@ -48,8 +59,8 @@ $("#signUp").on("click", event => {
 // event listener for login button
 $(document).on("click", "#login", event => {
   event.preventDefault();
-  let userName = $("#recipient-UserName");
-  let passWord = $("#recipient-password");
+  let userName = $("#recipient-UserName1");
+  let passWord = $("#recipient-password1");
   if (userName.val().trim().length < 1) {
     userName.focus();
   } else if (passWord.val().trim().length < 1) {
@@ -61,16 +72,16 @@ $(document).on("click", "#login", event => {
       user_name: $("#recipient-UserName1").val(),
       password: $("#recipient-password1").val()
     };
-    // make a PUT request to server for validating user credentials
+    console.log(user);
+    // make a Get request to server for validating user credentials
     $.ajax({
-      url: "/api/user",
-      type: "PUT",
-      data: user
+      url: "/api/users/" + user.user_name + "/pass/" + user.password,
+      type: "Get"
     }).then(res => {
       if (res) {
         // user validated, so do the following
         console.log("logged in");
-        window.localStorage.setItem("user", res);
+        window.localStorage.setItem("user", res.id);
         $("#exampleModal1").empty();
         window.location.reload();
       } else {
@@ -80,4 +91,16 @@ $(document).on("click", "#login", event => {
       }
     });
   }
+});
+
+// event listenener for logout
+$(document).on("click", "#logOut", event => {
+  event.preventDefault();
+  window.localStorage.removeItem("user");
+  window.location.reload();
+});
+
+//event listener for home button
+$(document).on("click", "#homeBtn", event => {
+  window.location.href = "/";
 });
