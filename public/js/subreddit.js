@@ -246,19 +246,37 @@ function createUserVote(val, userId, postId) {
   }
 }
 
-// generating banner and joining a subreddit
+// generating banner
 let subBanner = $("#subBanner");
 
 function createBanner(info) {
   console.log(info.title);
   let banner = $("<h3>").text("Welcome to reddit/subs/" + info.title);
-  let addSubBtn = $("<button>")
-    .addClass("btn btn-primary addSub")
-    .text("Join");
+  let addSubBtn = $("<button>").addClass("btn btn-primary addSub");
+  $.ajax({
+    url: "/api/subs/name/" + subRedditName,
+    type: "GET"
+  }).then(result => {
+    let currentUsers = result.Users;
+    let userIds = [];
+    // console.log(currentUsers);
+    for (let i = 0; i < currentUsers.length; i++) {
+      let info = currentUsers[i].id;
+      userIds[i] = info;
+    }
+
+    if (userIds.indexOf(parseInt(userId)) === -1) {
+      addSubBtn.text("Join").attr("id", "joinBtn");
+    } else {
+      addSubBtn.text("Leave").attr("id", "leaveBtn");
+    }
+  });
+
   subBanner.append(banner, addSubBtn);
 }
 
-$(document).on("click", ".addSub", event => {
+// joining a subreddit
+$(document).on("click", "#joinBtn", event => {
   event.preventDefault();
 
   let data = {
@@ -268,6 +286,21 @@ $(document).on("click", ".addSub", event => {
 
   $.ajax({
     url: "/api/subs/" + data.SubId + "/user/" + data.UserId,
+    type: "PUT"
+  });
+});
+
+// leaving a subreddit
+$(document).on("click", "#leaveBtn", event => {
+  event.preventDefault();
+
+  let data = {
+    UserId: parseInt(userId),
+    SubId: subredditId
+  };
+
+  $.ajax({
+    url: "/api/leave/subs/" + data.SubId + "/user/" + data.UserId,
     type: "PUT"
   });
 });

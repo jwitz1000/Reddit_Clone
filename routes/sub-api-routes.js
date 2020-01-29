@@ -62,6 +62,29 @@ module.exports = function(app) {
     });
   });
 
+  //leave a sub
+  app.put("/api/leave/subs/:subId/user/:userId", function(req, res) {
+    let theSub;
+    let theUser;
+    db.Sub.findOne({
+      where: {
+        id: req.params.subId
+      }
+    }).then(function(dbSub) {
+      theSub = dbSub;
+      console.log(dbSub.dataValues);
+      db.User.findOne({
+        where: {
+          id: req.params.userId
+        }
+      }).then(function(dbUser) {
+        theUser = dbUser;
+        theUser.removeSub(theSub);
+        res.send("sub removed");
+      });
+    });
+  });
+
   // delete Sub
   app.delete("/api/subs/:id", function(req, res) {
     db.Sub.destroy({
