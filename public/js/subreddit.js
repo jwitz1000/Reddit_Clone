@@ -15,7 +15,7 @@ let subredditId;
 let userId = localStorage.getItem("user");
 
 // Global varibles.............
-let post = $(".post");
+// let post = $(".post");
 //============================== Functionality ========================//
 let renderPostFeed = subRedditName => {
   getPosts(subRedditName).then(results => {

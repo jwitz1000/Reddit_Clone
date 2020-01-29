@@ -33,7 +33,11 @@
             type="search"
             placeholder="Search"
             aria-label="Search"
+            id="searchSub"
           />
+          <button class="btn-light" type="submit" id="searchBtn">
+            Search
+          </button>
           <button class="btn-light mr-sm-2" type="submit">
             <i class="fas fa-chart-line"></i>
           </button>
@@ -271,32 +275,32 @@
       </div>
     </div>
     <!-- CHANGE BELOW HERE ONLY -->
-    4:54
     <div class="container">
       <br />
       <br />
       <br />
       <br />
-
-      <div class="row">
-        <div class="col-md-12 ">
-          <div class="postId"></div>
-          <div id="createComment">
-            <form>
-              <div class="form-group">
-                <label for="comment-description">Comment</label>
-                <textarea
-                  class="form-control"
-                  id="comment-description"
-                  rows="3"
-                ></textarea>
-              </div>
-              <button class="btn btn-primary createCommentBtn">
-                Create Comment
-              </button>
-            </form>
+      <div class="post">
+        <div class="row">
+          <div class="col-md-12 ">
+            <div class="postId"></div>
+            <div id="createComment">
+              <form>
+                <div class="form-group">
+                  <label for="comment-description">Comment</label>
+                  <textarea
+                    class="form-control"
+                    id="comment-description"
+                    rows="3"
+                  ></textarea>
+                </div>
+                <button class="btn btn-primary createCommentBtn">
+                  Create Comment
+                </button>
+              </form>
+            </div>
+            <div class="comment"></div>
           </div>
-          <div class="comment"></div>
         </div>
       </div>
     </div>

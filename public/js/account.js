@@ -9,6 +9,7 @@ $.ajax({
   let userButton = $("#dropdownMenuButton").text(res.user_name);
 });
 
+let post = $(".post");
 //listener for signup button
 $("#signUp").on("click", event => {
   event.preventDefault();
@@ -104,3 +105,26 @@ $(document).on("click", "#logOut", event => {
 $(document).on("click", "#homeBtn", event => {
   window.location.href = "/";
 });
+
+// ARMAN
+//event listener for search button
+$(document).on("click", "#searchBtn", event => {
+  event.preventDefault();
+
+  let searchSub = $("#searchSub").val();
+  console.log(searchSub);
+  $.ajax({
+    url: "/api/subs/name/" + searchSub,
+    type: "GET"
+  }).then(result => {
+    if (result) {
+      post.empty().append($("<hr>"));
+      let subLink = $("<div>").html(
+        `Click to go to <a class = subLink id =${result.id} href='/subs/${result.title}'>${result.title} 
+        </a>`
+      );
+      post.append(subLink);
+    }
+  });
+});
+// ARMAN

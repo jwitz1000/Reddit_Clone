@@ -11,7 +11,7 @@ if (window.localStorage.getItem("user")) {
 let userId = localStorage.getItem("user");
 
 // Global varibles.............
-let post = $(".post");
+// let post = $(".post");
 //============================== Functionality ========================//
 let renderPostFeed = () => {
   getPosts().then(results => {

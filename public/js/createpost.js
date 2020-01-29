@@ -9,7 +9,7 @@ if (window.localStorage.getItem("user")) {
 
 // Dependencies................
 let userId = localStorage.getItem("user");
-let post = $(".post");
+// let post = $(".post");
 
 //load subs
 $(document).on("ready", renderSubs());
