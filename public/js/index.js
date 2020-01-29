@@ -11,23 +11,45 @@ if (window.localStorage.getItem("user")) {
 let userId = localStorage.getItem("user");
 
 // Global varibles.............
-// let post = $(".post");
 //============================== Functionality ========================//
-let renderPostFeed = data => {
+let renderPostFeed = (data, empty) => {
   if (data) {
-    renderPosts(data);
+    if (empty) {
+      post.empty().append($("<hr>"));
+
+      arrayOfPosts.sort(
+        (a, b) => a[0].getAttribute("value") - b[0].getAttribute("value")
+      );
+      for (let i = arrayOfPosts.length; i > -1; i--) {
+        post.append(arrayOfPosts[i]);
+      }
+    } else {
+      renderPosts(data);
+    }
   } else {
     getPosts().then(results => {
       renderPosts(results);
+      if (empty) {
+        post.empty().append($("<hr>"));
+        arrayOfPosts.sort(
+          (a, b) => a[0].getAttribute("value") - b[0].getAttribute("value")
+        );
+        console.log(arrayOfPosts);
+        for (let i = arrayOfPosts.length; i > -1; i--) {
+          post.append(arrayOfPosts[i]);
+        }
+      }
     });
   }
 };
+// let arrayOfPosts = [];
+let arrayOfPosts = [];
 
 // Render Existing Posts For Feed........................
 let renderPosts = results => {
-  console.log(results);
+  console.log("making posts");
+  arrayOfPosts = [];
   results.forEach(result => {
-    console.log(results);
     let cardbody = $("<div>").addClass("card-body p-0");
 
     let row1 = $("<div>").addClass("row");
@@ -53,7 +75,10 @@ let renderPosts = results => {
       }
     }
     let sum = ups - downs;
-    let votes = $("<div>").text(sum);
+    let votes = $("<div>")
+      .text(sum)
+      .attr("value", sum)
+      .addClass("voteValues");
 
     let downVote = $("<button>")
       .addClass("voteBtn btn btn-link text-dark fas fa-long-arrow-alt-down")
@@ -100,18 +125,15 @@ let renderPosts = results => {
     col1.append(leftRow1, leftRow2, leftRow3);
     row1.append(col1, col2);
 
-    // cardbody.append(title, body, $("<hr>"), commentDiv);
-    // col2.append(cardbody);
-    // col1.append(leftRow1, leftRow2, leftRow3);
-    // row1.append(col1, col2);
-
     let card = $("<div>")
       .addClass("card mb-3")
-      .append(row1);
+      .append(row1)
+      .attr("value", sum);
     post.append(card);
+    arrayOfPosts.push(card);
   });
+  // console.log(arrayOfPosts);
 };
-
 //=============================== API Calls =============================//
 
 // Get all Posts............
@@ -260,6 +282,10 @@ $(document).on("click", "#all", event => {
 
 //by my subs
 $(document).on("click", "#mySubs", event => {
+  renderMySubs();
+});
+
+function renderMySubs(sort) {
   if (userIdForButtons) {
     post.empty().append($("<hr>"));
 
@@ -267,17 +293,31 @@ $(document).on("click", "#mySubs", event => {
       url: "/api/users/" + userId,
       type: "GET"
     }).then(results => {
-      console.log(results);
+      // console.log(results);
       for (let i = 0; i < results.Subs.length; i++) {
         let tempId = results.Subs[i].id;
         $.ajax({
           url: "/api/posts/sub/" + tempId,
           type: "GET"
         }).then(results => {
-          console.log(results);
-          renderPostFeed(results);
+          if (sort) {
+            renderPostFeed(results, true);
+          } else {
+            renderPostFeed(results);
+          }
         });
       }
     });
   }
+}
+
+// by popularity-all
+$(document).on("click", "#all-popular", event => {
+  renderPostFeed(null, true);
+});
+
+// by mysubs-all
+$(document).on("click", "#mySubs-popular", event => {
+  console.log("hey");
+  renderMySubs(true);
 });

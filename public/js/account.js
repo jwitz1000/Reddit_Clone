@@ -12,6 +12,7 @@ if (userIdForButtons) {
 }
 
 let post = $(".post");
+
 //listener for signup button
 $("#signUp").on("click", event => {
   event.preventDefault();
