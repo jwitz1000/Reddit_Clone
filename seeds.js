@@ -3,13 +3,23 @@ module.exports = function() {
 
   let users = [
     {
-      user_name: "A",
-      password: "AA",
-      first_name: "AAA",
-      last_name: "AAAA"
+      user_name: "Arman_user",
+      password: "password",
+      first_name: "Arman",
+      last_name: "Riahi"
     },
-    { user_name: "B", password: "BB", first_name: "BBB", last_name: "BBB" },
-    { user_name: "C", password: "CC", first_name: "CCC", last_name: "CCCC" }
+    {
+      user_name: "Chris_user",
+      password: "password",
+      first_name: "Chris",
+      last_name: "Melby"
+    },
+    {
+      user_name: "JDawg",
+      password: "password",
+      first_name: "Jerome",
+      last_name: "Chenette"
+    }
   ];
 
   function userGenerate(users) {
@@ -20,7 +30,11 @@ module.exports = function() {
 
   userGenerate(users);
 
-  let subs = [{ title: "ffff" }, { title: "BBbbb" }, { title: "CCcccc" }];
+  let subs = [
+    { title: "animals" },
+    { title: "funnyPics" },
+    { title: "planes" }
+  ];
 
   function subGenerate(subs) {
     for (var i = 0; i < subs.length; i++) {
@@ -31,9 +45,9 @@ module.exports = function() {
   subGenerate(subs);
 
   let posts = [
-    { title: "Aaaa", body: "AAaaaa", UserId: "1", SubId: "3" },
-    { title: "Bbbb", body: "BBbbb", UserId: "1", SubId: "2" },
-    { title: "Cccc", body: "CCcccc", UserId: "3", SubId: "3" }
+    { title: "Cow Post", body: "this is the body", UserId: "1", SubId: "3" },
+    { title: "plane post", body: "this is the body", UserId: "1", SubId: "2" },
+    { title: "dog post", body: "this is the body", UserId: "3", SubId: "3" }
   ];
 
   function postGenerate(posts) {
@@ -45,9 +59,9 @@ module.exports = function() {
   postGenerate(posts);
 
   let comments = [
-    { PostId: "3", body: "AAaaaa", UserId: "3" },
-    { PostId: "2", body: "BBbbb", UserId: "2" },
-    { PostId: "1", body: "CCcccc", UserId: "3" }
+    { PostId: "3", body: "comment body1", UserId: "3" },
+    { PostId: "2", body: "comment body2", UserId: "2" },
+    { PostId: "1", body: "comment body3", UserId: "3" }
   ];
 
   function commentGenerate(comments) {

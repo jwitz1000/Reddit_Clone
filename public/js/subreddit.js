@@ -10,7 +10,7 @@ if (window.localStorage.getItem("user")) {
 //pull info from url
 const splitUrl = window.location.pathname.split("/");
 const subRedditName = splitUrl[2];
-
+let subredditId;
 // Dependencies................
 let userId = localStorage.getItem("user");
 
@@ -19,6 +19,8 @@ let post = $(".post");
 //============================== Functionality ========================//
 let renderPostFeed = subRedditName => {
   getPosts(subRedditName).then(results => {
+    subredditId = results.id;
+    createBanner(results);
     renderPostsForSub(results.Posts);
   });
 };
@@ -27,9 +29,9 @@ let renderPostFeed = subRedditName => {
 let renderPostsForSub = results => {
   post.empty().append($("<hr>"));
   results.forEach(result => {
-    console.log(result.id);
+    // console.log(result.id);
     findPost(result.id).then(result => {
-      console.log(result);
+      // console.log(result);
       let cardbody = $("<div>").addClass("card-body p-0");
 
       let row1 = $("<div>").addClass("row");
@@ -172,14 +174,14 @@ $(document).on("click", ".voteBtn", event => {
   let val = event.target.value;
   let postId = $(event.target).data("postId");
   let theUserId = userId;
-  console.log(val, postId, theUserId);
+  // console.log(val, postId, theUserId);
 
   checkUserVoter(val, theUserId, postId);
 });
 
 function checkUserVoter(val, userId, postId) {
   checkIfUserVoted(postId, userId).then(function(data) {
-    console.log(data);
+    // console.log(data);
     if (data.length != 0) {
       changeUserVote(val, userId, postId, data);
     } else {
@@ -213,7 +215,7 @@ function changeUserVote(val, userId, postId, data) {
       updateVote(voteData, data[0].id);
     }
   }
-  console.log(voteData);
+  // console.log(voteData);
 }
 
 function createUserVote(val, userId, postId) {
@@ -224,7 +226,7 @@ function createUserVote(val, userId, postId) {
       PostId: postId
     };
     makeVote(voteData).then(function(data) {
-      console.log(data);
+      // console.log(data);
     });
   } else if (val === "down") {
     let voteData = {
@@ -233,7 +235,33 @@ function createUserVote(val, userId, postId) {
       UserId: userId
     };
     makeVote(voteData).then(function(data) {
-      console.log(data);
+      // console.log(data);
     });
   }
 }
+
+// generating banner and joining a subreddit
+let subBanner = $("#subBanner");
+
+function createBanner(info) {
+  console.log(info.title);
+  let banner = $("<h3>").text("Welcome to reddit/subs/" + info.title);
+  let addSubBtn = $("<button>")
+    .addClass("btn btn-primary addSub")
+    .text("Join");
+  subBanner.append(banner, addSubBtn);
+}
+
+$(document).on("click", ".addSub", event => {
+  event.preventDefault();
+
+  let data = {
+    UserId: parseInt(userId),
+    SubId: subredditId
+  };
+
+  $.ajax({
+    url: "/api/subs/" + data.SubId + "/user/" + data.UserId,
+    type: "PUT"
+  });
+});
