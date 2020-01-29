@@ -42,7 +42,19 @@ let renderPosts = results => {
       .addClass("voteBtn btn btn-link text-dark fas fa-long-arrow-alt-up")
       .data("postId", result.id)
       .attr("value", "up");
-    let votes = $("<div>").text(result.Votes.length);
+
+    let ups = 0;
+    let downs = 0;
+    for (let i = 0; i < result.Votes.length; i++) {
+      if (result.Votes[i].up_vote === true) {
+        ups++;
+      } else if (result.Votes[i].down_vote === true) {
+        downs++;
+      }
+    }
+    let sum = ups - downs;
+    let votes = $("<div>").text(sum);
+
     let downVote = $("<button>")
       .addClass("voteBtn btn btn-link text-dark fas fa-long-arrow-alt-down")
       .data("postId", result.id)

@@ -52,7 +52,19 @@ let renderPostsForSub = results => {
         .addClass("voteBtn btn btn-link text-dark fas fa-long-arrow-alt-up")
         .data("postId", result.id)
         .attr("value", "up");
-      let votes = $("<div>").text(result.Votes.length);
+
+      let ups = 0;
+      let downs = 0;
+      for (let i = 0; i < result.Votes.length; i++) {
+        if (result.Votes[i].up_vote === true) {
+          ups++;
+        } else if (result.Votes[i].down_vote === true) {
+          downs++;
+        }
+      }
+      let sum = ups - downs;
+      let votes = $("<div>").text(sum);
+
       let downVote = $("<button>")
         .addClass("voteBtn btn btn-link text-dark fas fa-long-arrow-alt-down")
         .data("postId", result.id)
@@ -252,26 +264,28 @@ let subBanner = $("#subBanner");
 function createBanner(info) {
   console.log(info.title);
   let banner = $("<h3>").text("Welcome to reddit/subs/" + info.title);
-  let addSubBtn = $("<button>").addClass("btn btn-primary addSub");
-  $.ajax({
-    url: "/api/subs/name/" + subRedditName,
-    type: "GET"
-  }).then(result => {
-    let currentUsers = result.Users;
-    let userIds = [];
-    // console.log(currentUsers);
-    for (let i = 0; i < currentUsers.length; i++) {
-      let info = currentUsers[i].id;
-      userIds[i] = info;
-    }
+  let addSubBtn;
+  if (userId) {
+    addSubBtn = $("<button>").addClass("btn btn-primary addSub");
+    $.ajax({
+      url: "/api/subs/name/" + subRedditName,
+      type: "GET"
+    }).then(result => {
+      let currentUsers = result.Users;
+      let userIds = [];
+      // console.log(currentUsers);
+      for (let i = 0; i < currentUsers.length; i++) {
+        let info = currentUsers[i].id;
+        userIds[i] = info;
+      }
 
-    if (userIds.indexOf(parseInt(userId)) === -1) {
-      addSubBtn.text("Join").attr("id", "joinBtn");
-    } else {
-      addSubBtn.text("Leave").attr("id", "leaveBtn");
-    }
-  });
-
+      if (userIds.indexOf(parseInt(userId)) === -1) {
+        addSubBtn.text("Join").attr("id", "joinBtn");
+      } else {
+        addSubBtn.text("Leave").attr("id", "leaveBtn");
+      }
+    });
+  }
   subBanner.append(banner, addSubBtn);
 }
 
