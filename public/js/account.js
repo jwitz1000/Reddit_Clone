@@ -153,6 +153,7 @@ $(document).on("click", "#createSub", event => {
       }).then(result => {
         console.log(result);
         console.log("success");
+        window.location.href = "/";
       });
     }
   });

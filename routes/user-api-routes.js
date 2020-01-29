@@ -3,7 +3,6 @@ var db = require("../models");
 module.exports = function(app) {
   //get all users
   app.get("/api/users", function(req, res) {
-    console.log("hey");
     db.User.findAll({ include: [db.Post, db.Comment] }).then(function(dbUser) {
       res.json(dbUser);
     });

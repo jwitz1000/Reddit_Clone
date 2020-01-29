@@ -14,18 +14,21 @@ let userId = localStorage.getItem("user");
 //============================== Functionality ========================//
 let renderPostFeed = (data, empty) => {
   if (data) {
-    if (empty) {
-      post.empty().append($("<hr>"));
+    // if (empty) {
+    //   renderPosts(data);
 
-      arrayOfPosts.sort(
-        (a, b) => a[0].getAttribute("value") - b[0].getAttribute("value")
-      );
-      for (let i = arrayOfPosts.length; i > -1; i--) {
-        post.append(arrayOfPosts[i]);
-      }
-    } else {
-      renderPosts(data);
-    }
+    //   post.empty().append($("<hr>"));
+
+    //   arrayOfPosts.sort(
+    //     (a, b) => a[0].getAttribute("value") - b[0].getAttribute("value")
+    //   );
+    //   for (let i = arrayOfPosts.length; i > -1; i--) {
+    //     post.append(arrayOfPosts[i]);
+    //   }
+    // } else {
+
+    renderPosts(data);
+    // }
   } else {
     getPosts().then(results => {
       renderPosts(results);
@@ -47,7 +50,6 @@ let arrayOfPosts = [];
 
 // Render Existing Posts For Feed........................
 let renderPosts = results => {
-  console.log("making posts");
   arrayOfPosts = [];
   results.forEach(result => {
     let cardbody = $("<div>").addClass("card-body p-0");
@@ -132,7 +134,6 @@ let renderPosts = results => {
     post.append(card);
     arrayOfPosts.push(card);
   });
-  // console.log(arrayOfPosts);
 };
 //=============================== API Calls =============================//
 
@@ -285,7 +286,7 @@ $(document).on("click", "#mySubs", event => {
   renderMySubs();
 });
 
-function renderMySubs(sort) {
+function renderMySubs() {
   if (userIdForButtons) {
     post.empty().append($("<hr>"));
 
@@ -300,11 +301,13 @@ function renderMySubs(sort) {
           url: "/api/posts/sub/" + tempId,
           type: "GET"
         }).then(results => {
-          if (sort) {
-            renderPostFeed(results, true);
-          } else {
-            renderPostFeed(results);
-          }
+          // if (sort) {
+          //   console.log("hey");
+          //   renderPostFeed(results, true);
+          // } else {
+          //   console.log("hello");
+          renderPostFeed(results);
+          // }
         });
       }
     });
@@ -316,8 +319,13 @@ $(document).on("click", "#all-popular", event => {
   renderPostFeed(null, true);
 });
 
-// by mysubs-all
-$(document).on("click", "#mySubs-popular", event => {
-  console.log("hey");
-  renderMySubs(true);
+// by mysubs-popularity
+// $(document).on("click", "#mySubs-popular", event => {
+//   renderMySubs(true);
+// });
+
+// change the name of sort based on what you choose
+$(document).on("click", ".sortThing", event => {
+  $("#dropdownMenuButton2:first-child").text($(event.target).text());
+  $("#dropdownMenuButton2:first-child").val($(event.target).text());
 });
