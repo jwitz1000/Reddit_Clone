@@ -78,7 +78,7 @@ let renderPostsForSub = results => {
 
       let commentDiv = $("<div>").addClass("font-weight-bold text-secondary");
       let commentIcon = $("<i>").addClass("fas fa-comment");
-      let btn = $("<a href='/comments'>")
+      let btn = $(`<a href='/posts/${result.id}'>`)
         .addClass("comment secondary font-weight-bolder text-secondary")
         .data("id", result.id)
         .text(result.Comments.length + " Comments");

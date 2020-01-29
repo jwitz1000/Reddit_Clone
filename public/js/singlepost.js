@@ -102,9 +102,32 @@ $(".logout").on("click", event => {
   window.location.reload();
 });
 // Post Comment...................
-$(".postComment").on("click", event => {
-  event.preventDefault();
-  window.localStorage.setItem("comment", res.post_id);
-});
+// $(".postComment").on("click", event => {
+//   event.preventDefault();
+//   window.localStorage.setItem("comment", res.post_id);
+// });
 
 // Armans shit
+let createCommentDiv = $("#createComment");
+// create post..........
+$(document).on("click", ".createCommentBtn", event => {
+  event.preventDefault();
+
+  let commentD = $("#comment-description").val();
+
+  let data = {
+    UserId: userId,
+    PostId: singlePostId,
+    body: commentD
+  };
+  console.log(data);
+
+  $.ajax({
+    url: "/api/comments",
+    type: "POST",
+    data: data
+  }).then(res => {
+    console.log(res);
+    // refresh page
+  });
+});
