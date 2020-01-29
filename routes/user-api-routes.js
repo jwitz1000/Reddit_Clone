@@ -14,7 +14,7 @@ module.exports = function(app) {
       where: {
         id: req.params.id
       },
-      include: [db.Post, db.Comment]
+      include: [db.Post, db.Comment, db.Sub]
     }).then(function(dbUser) {
       res.json(dbUser);
     });

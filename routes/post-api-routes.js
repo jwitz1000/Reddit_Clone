@@ -30,6 +30,19 @@ module.exports = function(app) {
       res.json(dbPost);
     });
   });
+
+  //all posts in a sub
+  app.get("/api/posts/sub/:id", function(req, res) {
+    db.Post.findAll({
+      where: {
+        SubId: req.params.id
+      },
+      include: [db.User, db.Comment, db.Vote, db.Sub]
+    }).then(function(dbPost) {
+      res.json(dbPost);
+    });
+  });
+
   //make a post
   app.post("/api/posts", function(req, res) {
     db.Post.create(req.body).then(function(dbPost) {

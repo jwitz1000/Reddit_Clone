@@ -13,16 +13,19 @@ let userId = localStorage.getItem("user");
 // Global varibles.............
 // let post = $(".post");
 //============================== Functionality ========================//
-let renderPostFeed = () => {
-  getPosts().then(results => {
-    renderPosts(results);
-  });
+let renderPostFeed = data => {
+  if (data) {
+    renderPosts(data);
+  } else {
+    getPosts().then(results => {
+      renderPosts(results);
+    });
+  }
 };
 
 // Render Existing Posts For Feed........................
 let renderPosts = results => {
   console.log(results);
-  post.empty().append($("<hr>"));
   results.forEach(result => {
     console.log(results);
     let cardbody = $("<div>").addClass("card-body p-0");
@@ -234,3 +237,31 @@ function createUserVote(val, userId, postId) {
     });
   }
 }
+
+//sorting
+$(document).on("click", "#all", event => {
+  post.empty().append($("<hr>"));
+
+  renderPostFeed();
+});
+
+$(document).on("click", "#mySubs", event => {
+  post.empty().append($("<hr>"));
+
+  $.ajax({
+    url: "/api/users/" + userId,
+    type: "GET"
+  }).then(results => {
+    console.log(results);
+    for (let i = 0; i < results.Subs.length; i++) {
+      let tempId = results.Subs[i].id;
+      $.ajax({
+        url: "/api/posts/sub/" + tempId,
+        type: "GET"
+      }).then(results => {
+        console.log(results);
+        renderPostFeed(results);
+      });
+    }
+  });
+});
