@@ -16,6 +16,12 @@ let userId = localStorage.getItem("user");
 
 // Global varibles.............
 // let post = $(".post");
+
+//redirect for create post
+$(document).on("click", "#createPost", event => {
+  window.location.href = "/create";
+});
+
 //============================== Functionality ========================//
 let renderPostFeed = subRedditName => {
   getPosts(subRedditName).then(results => {

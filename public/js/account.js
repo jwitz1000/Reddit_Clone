@@ -2,12 +2,14 @@
 let userIdForButtons = localStorage.getItem("user");
 
 // setting name in nav bar top right
-$.ajax({
-  url: "/api/users/" + userIdForButtons,
-  type: "GET"
-}).then(res => {
-  let userButton = $("#dropdownMenuButton").text(res.user_name);
-});
+if (userIdForButtons) {
+  $.ajax({
+    url: "/api/users/" + userIdForButtons,
+    type: "GET"
+  }).then(res => {
+    let userButton = $("#dropdownMenuButton").text(res.user_name);
+  });
+}
 
 let post = $(".post");
 //listener for signup button
@@ -99,7 +101,7 @@ $(document).on("click", "#logOut", event => {
 });
 
 //event listener for home button
-$(document).on("click", "#homeBtn", event => {
+$(document).on("click", ".homeBtn", event => {
   window.location.href = "/";
 });
 
@@ -125,3 +127,32 @@ $(document).on("click", "#searchBtn", event => {
   });
 });
 // ARMAN
+
+// allowing user to create subreddit
+$(document).on("click", "#createSub", event => {
+  let potentialSubName = $("#potentialSubName").val();
+  console.log(potentialSubName);
+  let data = {
+    title: potentialSubName
+  };
+  //check if sub exists
+  $.ajax({
+    url: "/api/subs/name/" + potentialSubName,
+    type: "GET"
+  }).then(result => {
+    if (result) {
+      //update this to display error to user
+      console.log("already exists");
+    } else {
+      //create sub
+      $.ajax({
+        url: "/api/subs",
+        type: "POST",
+        data: data
+      }).then(result => {
+        console.log(result);
+        console.log("success");
+      });
+    }
+  });
+});

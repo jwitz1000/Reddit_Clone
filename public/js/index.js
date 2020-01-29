@@ -239,29 +239,33 @@ function createUserVote(val, userId, postId) {
 }
 
 //sorting
+
+//by all
 $(document).on("click", "#all", event => {
   post.empty().append($("<hr>"));
-
   renderPostFeed();
 });
 
+//by my subs
 $(document).on("click", "#mySubs", event => {
-  post.empty().append($("<hr>"));
+  if (userIdForButtons) {
+    post.empty().append($("<hr>"));
 
-  $.ajax({
-    url: "/api/users/" + userId,
-    type: "GET"
-  }).then(results => {
-    console.log(results);
-    for (let i = 0; i < results.Subs.length; i++) {
-      let tempId = results.Subs[i].id;
-      $.ajax({
-        url: "/api/posts/sub/" + tempId,
-        type: "GET"
-      }).then(results => {
-        console.log(results);
-        renderPostFeed(results);
-      });
-    }
-  });
+    $.ajax({
+      url: "/api/users/" + userId,
+      type: "GET"
+    }).then(results => {
+      console.log(results);
+      for (let i = 0; i < results.Subs.length; i++) {
+        let tempId = results.Subs[i].id;
+        $.ajax({
+          url: "/api/posts/sub/" + tempId,
+          type: "GET"
+        }).then(results => {
+          console.log(results);
+          renderPostFeed(results);
+        });
+      }
+    });
+  }
 });
