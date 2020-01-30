@@ -38,21 +38,33 @@ $("#signUp").on("click", event => {
     first_name: firstName.val().trim(),
     last_name: lastName.val().trim()
   };
+
+  //validation that user name doesnt exist
   $.ajax({
-    url: "/api/users",
-    type: "POST",
-    data: user
+    url: "/api/users/name/" + user.user_name,
+    type: "GET"
   }).then(res => {
     console.log(res);
     if (res) {
-      // user successfully created account, so do the following
-      window.localStorage.setItem("user", res.id);
-      $("#exampleModal2").empty();
-      window.location.reload();
+      console.log("account already exists");
     } else {
-      // user failed to registered, so do the following
-      console.log("registration failed");
-      $("#recipient-UserName").val("");
+      $.ajax({
+        url: "/api/users",
+        type: "POST",
+        data: user
+      }).then(res => {
+        console.log(res);
+        if (res) {
+          // user successfully created account, so do the following
+          window.localStorage.setItem("user", res.id);
+          $("#exampleModal2").empty();
+          window.location.reload();
+        } else {
+          // user failed to registered, so do the following
+          console.log("registration failed");
+          $("#recipient-UserName").val("");
+        }
+      });
     }
   });
 });

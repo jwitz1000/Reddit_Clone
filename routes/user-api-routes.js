@@ -7,11 +7,23 @@ module.exports = function(app) {
       res.json(dbUser);
     });
   });
-  // get specific user
+  // get specific user by id
   app.get("/api/users/:id", function(req, res) {
     db.User.findOne({
       where: {
         id: req.params.id
+      },
+      include: [db.Post, db.Comment, db.Sub]
+    }).then(function(dbUser) {
+      res.json(dbUser);
+    });
+  });
+
+  // get specific user by name
+  app.get("/api/users/name/:name", function(req, res) {
+    db.User.findOne({
+      where: {
+        user_name: req.params.name
       },
       include: [db.Post, db.Comment, db.Sub]
     }).then(function(dbUser) {
