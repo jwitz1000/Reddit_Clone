@@ -52,12 +52,11 @@ let arrayOfPosts = [];
 let renderPosts = results => {
   arrayOfPosts = [];
   results.forEach(result => {
-    let cardbody = $("<div>").addClass("card p-3 shadow-sm p-3 mb-5 bg-white rounded");
-    // let cardCol = $("<div>").addClass("col-8");
+    let cardbody = $("<div>").addClass("card-body p-0");
 
-    let row1 = $("<div>").addClass("row p-3");
-    let col1 = $("<div>").addClass("col-1 bg-light");
-    let col2 = $("<div>").addClass("col-8");
+    let row1 = $("<div>").addClass("row");
+    let col1 = $("<div>").addClass("col-sm-1");
+    let col2 = $("<div>").addClass("col-sm-11");
 
     let leftRow1 = $("<div>").addClass("row justify-content-center");
     let leftRow2 = $("<div>").addClass("row justify-content-center");
@@ -92,24 +91,24 @@ let renderPosts = results => {
     leftRow2.append(votes);
     leftRow3.append(downVote);
 
-    let rightRow1 = $("<p>").addClass("");
-    let rightRow2 = $("<p>").addClass("pb-5");
-    let rightRow3 = $("<p>").addClass("mb-0");
+    let rightRow1 = $("<div>").addClass("row");
+    let rightRow2 = $("<div>").addClass("row");
+    let rightRow3 = $("<div>").addClass("row");
 
     let posterInfo = $("<div>").html(
       `Posted in <a class = subLink id =${result.Sub.id} href='/subs/${result.Sub.title}'> ${result.Sub.title} 
         </a> by 
         ${result.User.user_name}
         at ${result.createdAt}`
-    );// Date.parse this-------------------------------//
+    );
     rightRow1.append(posterInfo);
 
     let title = $("<h5>")
       .addClass("mb-0")
       .text(result.title);
 
-    let body = $("<div>")
-      .addClass("card-body text-muted border")
+    let body = $("<p>")
+      .addClass("card-text text-muted")
       .text(result.body);
 
     rightRow2.append(title, body);
@@ -129,7 +128,7 @@ let renderPosts = results => {
     row1.append(col1, col2);
 
     let card = $("<div>")
-      .addClass("col-12 p-3 justify-content-center")
+      .addClass("card mb-3")
       .append(row1)
       .attr("value", sum);
     post.append(card);

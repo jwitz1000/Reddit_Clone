@@ -8,7 +8,7 @@
       rel="stylesheet"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
     <script
@@ -18,11 +18,10 @@
 
     <title>Reddit Clone</title>
   </head>
-  <body class="bg-light">
-    <!-------------------------------------------------- Logged In Nav ---------------------------------------------------------------->
+  <body>
     <div id="loggedIn">
       <nav
-        class="navbar  navbar-light  navbar-expand-lg bg-white border-bottom"
+        class="navbar  navbar-light  navbar-expand-lg bg-light"
         style="height: 3.8rem;"
       >
         <button
@@ -37,33 +36,9 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <span style="font-size: 2.5rem; color: Tomato; padding: 0;">
-            <i class="fab fa-reddit homeBtn mr-md-5"></i>
+          <span style="font-size: 2rem; color: Tomato; padding: 0;">
+            <i class="fab fa-reddit homeBtn"></i>
           </span>
-          <div class="dropdown" style="width: 300px;">
-            <button
-              style="width: 300px;"
-              class="btn btn-white dropdown-toggle text-left"
-              type="button"
-              id="dropdownMenuButton home"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <i
-                class="fas fa-satellite-dish mr-2"
-                style="color: rgb(9, 126, 204);"
-              ></i>
-              Home
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Filter</a>
-              <a class="dropdown-item" href="#">Home</a>
-              <a class="dropdown-item" href="#">Popular</a>
-              <a class="dropdown-item" href="#">All</a>
-              <a class="dropdown-item" href="#">Reddit Public Access Network</a>
-            </div>
-          </div>
           <form class="form-inline">
             <input
               class="form-control my-2 my-lg-0 mr-sm-2"
@@ -73,28 +48,23 @@
               aria-label="Search"
               id="searchSub"
             />
-            <button
-              class="btn-primary btn"
-              type="submit"
-              id="searchBtn"
-              style="background-color: #0473e3;"
-            >
+            <button class="btn-dark" type="submit" id="searchBtn">
               Search
             </button>
-            <button class="btn btn-white ml-md-5">
+            <button class="btn-light mr-sm-2" type="submit">
               <i class="fas fa-chart-line"></i>
             </button>
-            <button class="btn btn-white my-2 mr-sm-2 border-right">
+            <button class="btn-light my-2 mr-sm-5" type="submit">
               <i class="fas fa-chart-bar"></i>
             </button>
             <br />
-            <button class="btn btn-white my-2">
+            <button class="btn-light" type="submit">
               <i class="fas fa-comment-dots"></i>
             </button>
-            <button class="btn btn-white my-2">
-              <i class="fas fa-envelope" style="color: rgb(245, 46, 20);"></i>
+            <button class="btn-light" type="submit">
+              <i class="fas fa-envelope"></i>
             </button>
-            <button class="btn btn-white my-2 mr-sm-5">
+            <button class="btn-light" type="submit">
               <i class="fas fa-edit"></i>
             </button>
           </form>
@@ -120,155 +90,47 @@
             </div>
           </div>
         </div>
-        <hr />
-      </nav>
-      <!--------------------------------------------------- Secondary Nav bar ------------------------------------------------------>
-      <nav class="navbar navbar-light bg-white" style="height: 3rem;">
-        <div class="row ml-5">
-          <div class="row ml-5">
-            <div class="col ml-5">
-              <span class="text-muted">views</span>
-            </div>
-            <div class="row ml-1 mr-3 border-right">
-              <span class="navbar-brand p-0"
-                ><i class="fas fa-th-large" style="color: rgb(9, 126, 204);"></i
-              ></span>
-              <span
-                class="navbar-brand p-0 float-right"
-                style="color: rgb(9, 126, 204);"
-                ><i class="fas fa-th"></i
-              ></span>
-            </div>
-          </div>
-          <div class="col">
-            <!------------------------------------ Drop down for sort and Subreddits --------------------------->
-            <div class="dropdown">
-              <button
-                class="btn btn-white dropdown-toggle btn-sm"
-                type="button"
-                id="dropdownMenuButton2"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Sort By
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                <a class="dropdown-item sortThing" id="all">All</a>
-                <a class="dropdown-item sortThing" id="all-popular"
-                  >All/Popular</a
-                >
-                <a class="dropdown-item sortThing" id="mySubs">My Subs</a>
-                <!-- <a class="dropdown-item" id="mySubs-popular">My Subs-Popular</a> -->
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <span class=""
-              ><i class="fas fa-rocket" style="color: rgb(9, 126, 204);"></i
-            ></span>
-            <span class="float-right ml-1">Best</span>
-          </div>
-        </div>
       </nav>
     </div>
-    <!-------------------------------------------------- Not Logged In Nav ---------------------------------------------------------------->
+
     <div id="notLoggedIn">
       <nav
-        class="navbar  navbar-light  navbar-expand-lg bg-white border-bottom"
+        class="navbar fixed-top navbar-light bg-light"
         style="height: 3.8rem;"
       >
         <span style="font-size: 2rem; color: Tomato; padding: 0;">
           <i class="fab fa-reddit  homeBtn"></i>
         </span>
-        <div class="col">
-          <form class="form-inline justify-content-center">
-            <input
-              class="form-control my-2 my-lg-0 mr-sm-5"
-              style="width: 30rem;"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button class="btn btn-white">
-              <i class="fas fa-chart-line"></i>
-            </button>
-            <button class="btn btn-white">
-              <i class="fas fa-chart-bar"></i>
-            </button>
-
-            <button
-              type="button"
-              class="btn btn-primary ml-5"
-              data-toggle="modal"
-              data-target="#exampleModal1"
-              data-whatever="@mdo"
-            >
-              Login
-            </button>
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-toggle="modal"
-              data-target="#exampleModal2"
-              data-whatever="@mdo"
-            >
-              Sign Up
-            </button>
-          </form>
-        </div>
-      </nav>
-      <!--------------------------------------------------- Secondary Nav bar Not Logged In----------------------------------------->
-      <nav class="navbar navbar-light bg-white" style="height: 3rem;">
-        <div class="row ml-5">
-          <div class="row ml-5">
-            <div class="col ml-5">
-              <span class="text-muted">views</span>
-            </div>
-            <div class="row ml-1 mr-3">
-              <span class="navbar-brand p-0"
-                ><i class="fas fa-th-large" style="color: rgb(9, 126, 204);"></i
-              ></span>
-              <span
-                class="navbar-brand p-0 float-right "
-                style="color: rgb(9, 126, 204);"
-                ><i class="fas fa-th"></i
-              ></span>
-            </div>
-          </div>
-          <div class="col">
-            <!------------------------------------ Drop down for sort and Subreddits Not Logged In --------------------------->
-            <div class="dropdown">
-              <button
-                class="btn btn-white dropdown-toggle btn-sm"
-                type="button"
-                id="dropdownMenuButton2"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Sort By
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                <a class="dropdown-item sortThing" id="all">All</a>
-                <a class="dropdown-item sortThing" id="all-popular"
-                  >All/Popular</a
-                >
-                <a class="dropdown-item sortThing" id="mySubs">My Subs</a>
-                <!-- <a class="dropdown-item" id="mySubs-popular">My Subs-Popular</a> -->
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <span
-              ><i class="fas fa-fire" style="color: rgb(9, 126, 204);"></i
-            ></span>
-            <p class="ml-2">HOT</p>
-          </div>
-        </div>
+        <form class="form-inline">
+          <input
+            class="form-control my-2 my-lg-0 mr-sm-5"
+            style="width: 30rem;"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#exampleModal1"
+            data-whatever="@mdo"
+          >
+            Login
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#exampleModal2"
+            data-whatever="@mdo"
+          >
+            Sign Up
+          </button>
+        </form>
       </nav>
     </div>
-    <!------------------------------------ modal for creating sub ----------------------------------------------->
+    <!-- model for creating sub -->
     <div
       class="modal fade"
       id="exampleModal3"
@@ -315,7 +177,7 @@
         </div>
       </div>
     </div>
-    <!------------------------------------ Modal for login ----------------------------------------------->
+    <!-- end of sub modal -->
     <div
       class="modal fade"
       id="exampleModal1"
@@ -343,6 +205,7 @@
                 <label for="recipient-name" class="col-form-label"
                   >User Name:</label
                 >
+                <!-- BOLD -->
                 <input
                   type="text"
                   class="form-control"
@@ -376,7 +239,6 @@
         </div>
       </div>
     </div>
-    <!------------------------------------ modal for sign up ----------------------------------------------->
     <div
       class="modal fade"
       id="exampleModal2"
@@ -458,12 +320,37 @@
         </div>
       </div>
     </div>
-    <!------------------------------------ Create Post Bar --------------------------->
-    <div class="jumbotron mt-0" id="subBanner"></div>
+    <!-- CHANGE BELOW HERE ONLY -->
     <div class="container">
+      <br />
+      <br />
+      <br />
+      <br />
       <div class="row">
-        <div class="creatPostBar col-md-10">
-          <form class="form-inline my-2 my-lg-0 justify-content-center">
+        <div class="dropdown">
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton2"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Sort By
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+            <a class="dropdown-item sortThing" id="all">All</a>
+            <a class="dropdown-item sortThing" id="all-popular">All/Popular</a>
+
+            <a class="dropdown-item sortThing" id="mySubs">My Subs</a>
+            <!-- <a class="dropdown-item" id="mySubs-popular">My Subs-Popular</a> -->
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="creatPostBar col-md-10 float-center">
+          <form class="form-inline my-2 my-lg-0">
             <input
               class="form-control mr-sm-2"
               style="width: 25rem;"
@@ -495,12 +382,13 @@
         </div>
       </div>
     </div>
+
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment.min.js"
       type="text/javascript"
     ></script>
-    <script src="../js/account.js" type="text/javascript"></script>
+    <script src="js/account.js" type="text/javascript"></script>
     <!-- change line below -->
-    <script src="../js/subreddit.js" type="text/javascript"></script>
+    <script src="js/index.js" type="text/javascript"></script>
   </body>
 </html>

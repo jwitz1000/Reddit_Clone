@@ -26,18 +26,21 @@ let renderSinglePost = res => {
   console.log(res);
   let singlePost = $(".postId");
   singlePost.empty();
-  let postRow = $("<div>").addClass("row justify-content-center");
+  let postRow = $("<div>").addClass("row float-center");
   let postCol = $("<div>").addClass("col-md-8");
   let postCard = $("<div>").addClass("card");
   let cardbody = $("<div>").addClass("card-body");
-  let title = $("<div>")
-    .addClass("card-title")
+  let title = $("<h5>")
+    .addClass("mb-0")
     .text(res.title);
   let body = $("<p>")
     .addClass("card-text")
     .text(res.body);
-
-  cardbody.append(title, body, $("<hr>"));
+  let btn = $("<button>")
+    .addClass("comment link secondary")
+    .data("id", res.id)
+    .text("Comment");
+  cardbody.append(title, body, $("<hr>"), btn);
   postCard.append(cardbody);
   postCol.append(postCard);
   postRow.append(postCol);
@@ -50,12 +53,9 @@ let renderComments = res => {
   comment.empty();
   res.forEach(results => {
     console.log(results);
-    let mainRow = $("<div>").addClass("row justify-content-center mt-2");
-    let commentRow = $("<div>").addClass("col-8");
-    let commentList = $("<div>").addClass("commentList card");
+    let commentRow = $("<div>").addClass("row");
+    let commentList = $("<div>").addClass("commentList col-md-8");
     let userName = $("<p>").addClass("font-weight-light");
-
-
     getUser(results.UserId).then(res => {
       console.log(res);
       userName.text(res.user_name);
@@ -64,16 +64,14 @@ let renderComments = res => {
       .addClass("font-weight-light")
       .text(results.createdAt);
     let userComment = $("<p>")
-      .addClass("font-weight-normal float-left")
+      .addClass("font-weight-normal")
       .text(results.body);
     commentRow.append(userName, dateCreated, $("<hr>"), userComment);
     commentList.append(commentRow);
     let card = $("<div>")
-      .addClass("col-8")
+      .addClass("card mb-3 p-3")
       .append(commentList);
-      mainRow.append(card)
-    comment.append(mainRow);
-
+    comment.append(card);
   });
 };
 //=============================== API Calls =============================//
@@ -109,7 +107,7 @@ $(".logout").on("click", event => {
 //   window.localStorage.setItem("comment", res.post_id);
 // });
 
-
+// Armans shit
 let createCommentDiv = $("#createComment");
 // create post..........
 $(document).on("click", ".createCommentBtn", event => {

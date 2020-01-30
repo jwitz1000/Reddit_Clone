@@ -38,6 +38,7 @@ $("#signUp").on("click", event => {
     first_name: firstName.val().trim(),
     last_name: lastName.val().trim()
   };
+
   //validation that user name doesnt exist
   $.ajax({
     url: "/api/users/name/" + user.user_name,
