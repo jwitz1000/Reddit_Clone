@@ -301,13 +301,7 @@ function renderMySubs() {
           url: "/api/posts/sub/" + tempId,
           type: "GET"
         }).then(results => {
-          // if (sort) {
-          //   console.log("hey");
-          //   renderPostFeed(results, true);
-          // } else {
-          //   console.log("hello");
           renderPostFeed(results);
-          // }
         });
       }
     });
