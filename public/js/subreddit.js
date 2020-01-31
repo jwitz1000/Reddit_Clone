@@ -318,6 +318,8 @@ $(document).on("click", "#joinBtn", event => {
   $.ajax({
     url: "/api/subs/" + data.SubId + "/user/" + data.UserId,
     type: "PUT"
+  }).then(res => {
+    document.location.reload();
   });
 });
 
@@ -333,5 +335,7 @@ $(document).on("click", "#leaveBtn", event => {
   $.ajax({
     url: "/api/leave/subs/" + data.SubId + "/user/" + data.UserId,
     type: "PUT"
+  }).then(res => {
+    document.location.reload();
   });
 });
