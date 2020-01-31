@@ -1,5 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
   var moment = require("moment");
+  var moment = require("moment-timezone");
 
   var Comment = sequelize.define("Comment", {
     body: {
@@ -11,9 +12,9 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       //note here this is the guy that you are looking for
       get() {
-        return moment(this.getDataValue("createdAt")).format(
-          "MMMM Do YYYY, h:mm a"
-        );
+        return moment
+          .tz(this.getDataValue("createdAt"), "America/Los_Angeles")
+          .format("MMMM Do YYYY, h:mm a");
       }
     }
   });

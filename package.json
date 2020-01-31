@@ -8,6 +8,7 @@
     "express-handlebars": "^3.1.0",
     "express-session": "^1.17.0",
     "moment": "^2.24.0",
+    "moment-timezone": "^0.5.27",
     "mysql": "^2.18.0",
     "mysql2": "^2.1.0",
     "passport": "^0.4.1",
