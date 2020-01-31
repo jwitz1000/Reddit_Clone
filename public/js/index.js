@@ -101,7 +101,7 @@ let renderPosts = results => {
       `Posted in <a class = subLink id =${result.Sub.id} href='/subs/${result.Sub.title}'> ${result.Sub.title} 
         </a> by 
         ${result.User.user_name}
-        at ${result.createdAt}`
+        on ${result.createdAt}`
     ); // Date.parse this-------------------------------//
     rightRow1.append(posterInfo);
 

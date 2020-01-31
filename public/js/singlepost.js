@@ -62,19 +62,20 @@ let renderComments = res => {
     let mainRow = $("<div>").addClass("row justify-content-center mt-2 mb-2");
     let commentRow = $("<div>").addClass("col-8");
     let commentList = $("<div>").addClass("commentList card");
-    let userName = $("<p>").addClass("font-weight-light");
+    let userName = $("<div>").addClass("font-weight-light");
 
     getUser(results.UserId).then(res => {
       console.log(res);
-      userName.text("Posted by: " + res.user_name);
+      userName.text("-Posted by " + res.user_name + " on " + results.createdAt);
     });
-    let dateCreated = $("<p>")
-      .addClass("font-weight-light")
-      .text(results.createdAt);
-    let userComment = $("<p>")
-      .addClass("font-weight-normal float-left")
+    // let dateCreated = $("<p>")
+    //   .addClass("font-weight-light")
+    //   .text("Posted on " + results.createdAt);
+    let userComment = $("<div>")
+      .addClass("float-left ")
+      .css("font-size", "20px")
       .text(results.body);
-    commentRow.append(userName, dateCreated, $("<hr>"), userComment);
+    commentRow.append(userComment, $("<br>"), $("<br>"), userName);
     commentList.append(commentRow);
     let card = $("<div>")
       .addClass("col-8")
