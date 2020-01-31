@@ -98,10 +98,11 @@ let renderPostsForSub = results => {
 
       let title = $("<h5>")
         .addClass("mb-0")
-        .text(result.title);
+        .text(result.title)
+        .css("font-weight", "bold");
 
       let body = $("<div>")
-        .addClass("card-body text-muted border")
+        .addClass("card-body border")
         .text(result.body);
 
       rightRow2.append(title, body);
