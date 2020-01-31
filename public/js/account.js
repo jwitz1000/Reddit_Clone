@@ -138,6 +138,10 @@ $(document).on("click", "#searchBtn", event => {
         </a>`
       );
       post.append(subLink);
+    } else {
+      window.alert(
+        "No result found. Please search for the exact name of the subreddit"
+      );
     }
   });
 });

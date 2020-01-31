@@ -31,8 +31,8 @@ module.exports = function() {
   userGenerate(users);
 
   let subs = [
-    { title: "animals" },
-    { title: "funnyPics" },
+    { title: "randomfacts" },
+    { title: "jokes" },
     { title: "planes" }
   ];
 
@@ -45,9 +45,24 @@ module.exports = function() {
   subGenerate(subs);
 
   let posts = [
-    { title: "Cow Post", body: "this is the body", UserId: "1", SubId: "3" },
-    { title: "plane post", body: "this is the body", UserId: "1", SubId: "2" },
-    { title: "dog post", body: "this is the body", UserId: "3", SubId: "3" }
+    {
+      title: "Sun",
+      body: "The sun is not technically on fire",
+      UserId: "1",
+      SubId: "1"
+    },
+    {
+      title: "Knock Knock",
+      body: "....is anyone gonna get that?",
+      UserId: "1",
+      SubId: "2"
+    },
+    {
+      title: "Flying solo",
+      body: "I find it very frightening",
+      UserId: "3",
+      SubId: "3"
+    }
   ];
 
   function postGenerate(posts) {
@@ -59,9 +74,9 @@ module.exports = function() {
   postGenerate(posts);
 
   let comments = [
-    { PostId: "3", body: "comment body1", UserId: "3" },
-    { PostId: "2", body: "comment body2", UserId: "2" },
-    { PostId: "1", body: "comment body3", UserId: "3" }
+    { PostId: "3", body: "Me too buddy", UserId: "3" },
+    { PostId: "2", body: "Who's there?", UserId: "2" },
+    { PostId: "1", body: "Then how does it warm us?", UserId: "3" }
   ];
 
   function commentGenerate(comments) {

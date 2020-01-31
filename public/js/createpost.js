@@ -35,36 +35,40 @@ function renderSubs() {
 $(document).on("click", ".createPost", event => {
   event.preventDefault();
 
-  let subTitle = $("#subId").val();
-
-  $.ajax({
-    url: "/api/subs/name/" + subTitle,
-    type: "GET"
-  }).then(res => {
-    let subId = res.id;
-    let postT = $("#post-title")
-      .val()
-      .trim();
-    let postD = $("#post-description")
-      .val()
-      .trim();
-
-    let data = {
-      UserId: userId,
-      SubId: subId,
-      title: postT,
-      body: postD
-    };
-    console.log(data);
+  if (userId) {
+    let subTitle = $("#subId").val();
 
     $.ajax({
-      url: "/api/posts",
-      type: "POST",
-      data: data
+      url: "/api/subs/name/" + subTitle,
+      type: "GET"
     }).then(res => {
-      console.log(res);
-      // add redirect to post
-      window.location.href = "/posts/" + res.id;
+      let subId = res.id;
+      let postT = $("#post-title")
+        .val()
+        .trim();
+      let postD = $("#post-description")
+        .val()
+        .trim();
+
+      let data = {
+        UserId: userId,
+        SubId: subId,
+        title: postT,
+        body: postD
+      };
+      console.log(data);
+
+      $.ajax({
+        url: "/api/posts",
+        type: "POST",
+        data: data
+      }).then(res => {
+        console.log(res);
+        // add redirect to post
+        window.location.href = "/posts/" + res.id;
+      });
     });
-  });
+  } else {
+    window.alert("Login to make a post");
+  }
 });

@@ -214,7 +214,11 @@ $(document).on("click", ".voteBtn", event => {
   let theUserId = userId;
   console.log(val, postId, theUserId);
 
-  checkUserVoter(val, theUserId, postId);
+  if (userId) {
+    checkUserVoter(val, theUserId, postId);
+  } else {
+    window.alert("Login to vote");
+  }
 });
 
 function checkUserVoter(val, userId, postId) {
