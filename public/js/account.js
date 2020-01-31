@@ -46,6 +46,7 @@ $("#signUp").on("click", event => {
     console.log(res);
     if (res) {
       console.log("account already exists");
+      window.alert("User name already exists");
     } else {
       $.ajax({
         url: "/api/users",
@@ -98,6 +99,8 @@ $(document).on("click", "#login", event => {
         window.location.reload();
       } else {
         // server validation failed, so do the following
+        window.alert("Login information is incorrect. Try again!");
+
         console.log("login failed");
         $("#recipient-password").val("");
       }

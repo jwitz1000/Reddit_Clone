@@ -22,6 +22,12 @@ $(document).on("click", "#createPost", event => {
   window.location.href = "/create";
 });
 
+$(".createPost").on("click", event => {
+  event.preventDefault();
+
+  window.location.href = "/create";
+});
+
 //============================== Functionality ========================//
 let renderPostFeed = subRedditName => {
   getPosts(subRedditName).then(results => {
@@ -38,15 +44,16 @@ let renderPostsForSub = results => {
     // console.log(result.id);
     findPost(result.id).then(result => {
       // console.log(result);
-      let cardbody = $("<div>").addClass("card p-3 shadow-sm p-3 mb-5 bg-white rounded");
-
+      let cardbody = $("<div>").addClass(
+        "card p-3 shadow-sm p-3  bg-white rounded"
+      );
       let row1 = $("<div>").addClass("row p-3 justify-content-center");
-      let col1 = $("<div>").addClass("col-1 bg-light");
-      let col2 = $("<div>").addClass("col-8");
+      let col1 = $("<div>").addClass("col-1 ");
+      let col2 = $("<div>").addClass("col-8 needFlush");
 
-      let leftRow1 = $("<div>").addClass("row justify-content-end");
-      let leftRow2 = $("<div>").addClass("row justify-content-end");
-      let leftRow3 = $("<div>").addClass("row justify-content-end");
+      let leftRow1 = $("<div>").addClass("row justify-content-center");
+      let leftRow2 = $("<div>").addClass("row justify-content-center");
+      let leftRow3 = $("<div>").addClass("row justify-content-center");
 
       let upVote = $("<button>")
         .addClass("voteBtn btn btn-link text-dark fas fa-long-arrow-alt-up")
@@ -63,7 +70,10 @@ let renderPostsForSub = results => {
         }
       }
       let sum = ups - downs;
-      let votes = $("<div>").text(sum);
+      let votes = $("<div>")
+        .text(sum)
+        .attr("value", sum)
+        .addClass("voteValues");
 
       let downVote = $("<button>")
         .addClass("voteBtn btn btn-link text-dark fas fa-long-arrow-alt-down")
@@ -81,17 +91,17 @@ let renderPostsForSub = results => {
       let posterInfo = $("<div>").html(
         `Posted in <a class = subLink id =${result.Sub.id} href='/subs/${result.Sub.title}'> ${result.Sub.title} 
           </a> by 
-          ${result.User.user_name} 
+          ${result.User.user_name}
           at ${result.createdAt}`
-      );// Date.parse this-------------------------------//
+      ); // Date.parse this-------------------------------//
       rightRow1.append(posterInfo);
 
       let title = $("<h5>")
         .addClass("mb-0")
         .text(result.title);
 
-      let body = $("<p>")
-        .addClass("card-text text-muted")
+      let body = $("<div>")
+        .addClass("card-body text-muted border")
         .text(result.body);
 
       rightRow2.append(title, body);
@@ -111,8 +121,9 @@ let renderPostsForSub = results => {
       row1.append(col1, col2);
 
       let card = $("<div>")
-        .addClass("col-12 p-3")
-        .append(row1);
+        .addClass("col-12 p-3 justify-content-center")
+        .append(row1)
+        .attr("value", sum);
       post.append(card);
     });
   });
@@ -266,7 +277,7 @@ function createBanner(info) {
   let banner = $("<h3>").text("Welcome to reddit/subs/" + info.title);
   let addSubBtn;
   if (userId) {
-    addSubBtn = $("<button>").addClass("btn btn-primary addSub");
+    addSubBtn = $("<button>").addClass("btn addSub");
     $.ajax({
       url: "/api/subs/name/" + subRedditName,
       type: "GET"
@@ -280,9 +291,15 @@ function createBanner(info) {
       }
 
       if (userIds.indexOf(parseInt(userId)) === -1) {
-        addSubBtn.text("Join").attr("id", "joinBtn");
+        addSubBtn
+          .text("Join")
+          .attr("id", "joinBtn")
+          .addClass("btn-success");
       } else {
-        addSubBtn.text("Leave").attr("id", "leaveBtn");
+        addSubBtn
+          .text("Leave")
+          .attr("id", "leaveBtn")
+          .addClass("btn-warning");
       }
     });
   }

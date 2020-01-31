@@ -32,12 +32,21 @@ let renderSinglePost = res => {
   let cardbody = $("<div>").addClass("card-body");
   let title = $("<div>")
     .addClass("card-title")
-    .text(res.title);
+    .text(res.title)
+    .css("font-weight", "bold");
   let body = $("<p>")
     .addClass("card-text")
     .text(res.body);
+  let theUser = $("<div>");
 
-  cardbody.append(title, body, $("<hr>"));
+  $.ajax({
+    url: "/api/users/" + userId,
+    type: "GET"
+  }).then(res => {
+    theUser.text("Posted by " + res.user_name);
+  });
+
+  cardbody.append(title, body, $("<hr>"), theUser);
   postCard.append(cardbody);
   postCol.append(postCard);
   postRow.append(postCol);
@@ -50,15 +59,14 @@ let renderComments = res => {
   comment.empty();
   res.forEach(results => {
     console.log(results);
-    let mainRow = $("<div>").addClass("row justify-content-center mt-2");
+    let mainRow = $("<div>").addClass("row justify-content-center mt-2 mb-2");
     let commentRow = $("<div>").addClass("col-8");
     let commentList = $("<div>").addClass("commentList card");
     let userName = $("<p>").addClass("font-weight-light");
 
-
     getUser(results.UserId).then(res => {
       console.log(res);
-      userName.text(res.user_name);
+      userName.text("Posted by: " + res.user_name);
     });
     let dateCreated = $("<p>")
       .addClass("font-weight-light")
@@ -71,9 +79,8 @@ let renderComments = res => {
     let card = $("<div>")
       .addClass("col-8")
       .append(commentList);
-      mainRow.append(card)
+    mainRow.append(card);
     comment.append(mainRow);
-
   });
 };
 //=============================== API Calls =============================//
@@ -109,7 +116,6 @@ $(".logout").on("click", event => {
 //   window.localStorage.setItem("comment", res.post_id);
 // });
 
-
 let createCommentDiv = $("#createComment");
 // create post..........
 $(document).on("click", ".createCommentBtn", event => {
@@ -130,6 +136,6 @@ $(document).on("click", ".createCommentBtn", event => {
     data: data
   }).then(res => {
     console.log(res);
-    // refresh page
+    document.location.reload();
   });
 });

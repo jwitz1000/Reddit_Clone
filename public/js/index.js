@@ -52,12 +52,12 @@ let arrayOfPosts = [];
 let renderPosts = results => {
   arrayOfPosts = [];
   results.forEach(result => {
-    let cardbody = $("<div>").addClass("card p-3 shadow-sm p-3 mb-5 bg-white rounded");
-    // let cardCol = $("<div>").addClass("col-8");
-
+    let cardbody = $("<div>").addClass(
+      "card p-3 shadow-sm p-3  bg-white rounded"
+    );
     let row1 = $("<div>").addClass("row p-3");
-    let col1 = $("<div>").addClass("col-1 bg-light");
-    let col2 = $("<div>").addClass("col-8");
+    let col1 = $("<div>").addClass("col-1 ");
+    let col2 = $("<div>").addClass("col-8 needFlush");
 
     let leftRow1 = $("<div>").addClass("row justify-content-center");
     let leftRow2 = $("<div>").addClass("row justify-content-center");
@@ -101,7 +101,7 @@ let renderPosts = results => {
         </a> by 
         ${result.User.user_name}
         at ${result.createdAt}`
-    );// Date.parse this-------------------------------//
+    ); // Date.parse this-------------------------------//
     rightRow1.append(posterInfo);
 
     let title = $("<h5>")
@@ -196,7 +196,11 @@ let deleteVote = id => {
 //onclick for main post feed on reguser.html......
 $(document).on("ready", renderPostFeed());
 
-$(document).on("click", "#createPost", event => {
+$(document).on("click", ".createPost", event => {
+  window.location.href = "/create";
+});
+$(".createPost").on("click", event => {
+  event.preventDefault();
   window.location.href = "/create";
 });
 
@@ -324,3 +328,94 @@ $(document).on("click", ".sortThing", event => {
   $("#dropdownMenuButton2:first-child").text($(event.target).text());
   $("#dropdownMenuButton2:first-child").val($(event.target).text());
 });
+
+// let renderPostsForSub = results => {
+//   post.empty().append($("<hr>"));
+//   results.forEach(result => {
+//     // console.log(result.id);
+//     findPost(result.id).then(result => {
+//       // console.log(result);
+//       let cardbody = $("<div>").addClass(
+//         "card p-3 shadow-sm p-3  bg-white rounded"
+//       );
+//       let row1 = $("<div>").addClass("row p-3 justify-content-center");
+//       let col1 = $("<div>").addClass("col-1 ");
+//       let col2 = $("<div>").addClass("col-8 needFlush");
+
+//       let leftRow1 = $("<div>").addClass("row justify-content-center");
+//       let leftRow2 = $("<div>").addClass("row justify-content-center");
+//       let leftRow3 = $("<div>").addClass("row justify-content-center");
+
+//       let upVote = $("<button>")
+//         .addClass("voteBtn btn btn-link text-dark fas fa-long-arrow-alt-up")
+//         .data("postId", result.id)
+//         .attr("value", "up");
+
+//       let ups = 0;
+//       let downs = 0;
+//       for (let i = 0; i < result.Votes.length; i++) {
+//         if (result.Votes[i].up_vote === true) {
+//           ups++;
+//         } else if (result.Votes[i].down_vote === true) {
+//           downs++;
+//         }
+//       }
+//       let sum = ups - downs;
+//       let votes = $("<div>")
+//         .text(sum)
+//         .attr("value", sum)
+//         .addClass("voteValues");
+
+//       let downVote = $("<button>")
+//         .addClass("voteBtn btn btn-link text-dark fas fa-long-arrow-alt-down")
+//         .data("postId", result.id)
+//         .attr("value", "down");
+
+//       leftRow1.append(upVote);
+//       leftRow2.append(votes);
+//       leftRow3.append(downVote);
+
+//       let rightRow1 = $("<p>").addClass("");
+//       let rightRow2 = $("<p>").addClass("pb-5");
+//       let rightRow3 = $("<p>").addClass("mb-0");
+
+//       let posterInfo = $("<div>").html(
+//         `Posted in <a class = subLink id =${result.Sub.id} href='/subs/${result.Sub.title}'> ${result.Sub.title}
+//           </a> by
+//           ${result.User.user_name}
+//           at ${result.createdAt}`
+//       ); // Date.parse this-------------------------------//
+//       rightRow1.append(posterInfo);
+
+//       let title = $("<h5>")
+//         .addClass("mb-0")
+//         .text(result.title);
+
+//       let body = $("<div>")
+//         .addClass("card-body text-muted border")
+//         .text(result.body);
+
+//       rightRow2.append(title, body);
+
+//       let commentDiv = $("<div>").addClass("font-weight-bold text-secondary");
+//       let commentIcon = $("<i>").addClass("fas fa-comment");
+//       let btn = $(`<a href='/posts/${result.id}'>`)
+//         .addClass("comment secondary font-weight-bolder text-secondary")
+//         .data("id", result.id)
+//         .text(result.Comments.length + " Comments");
+//       commentDiv.append(commentIcon, btn);
+//       rightRow3.append(commentDiv);
+
+//       cardbody.append(rightRow1, rightRow2, rightRow3);
+//       col2.append(cardbody);
+//       col1.append(leftRow1, leftRow2, leftRow3);
+//       row1.append(col1, col2);
+
+//       let card = $("<div>")
+//         .addClass("col-12 p-3 justify-content-center")
+//         .append(row1)
+//         .attr("value", sum);
+//       post.append(card);
+//     });
+//   });
+// };

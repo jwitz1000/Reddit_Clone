@@ -64,6 +64,7 @@ $(document).on("click", ".createPost", event => {
     }).then(res => {
       console.log(res);
       // add redirect to post
+      window.location.href = "/posts/" + res.id;
     });
   });
 });
