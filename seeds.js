@@ -55,13 +55,13 @@ module.exports = function() {
       title: "Knock Knock",
       body: "....is anyone gonna get that?",
       UserId: "1",
-      SubId: "3"
+      SubId: "2"
     },
     {
       title: "Flying solo",
       body: "I find it very frightening",
       UserId: "3",
-      SubId: "2"
+      SubId: "3"
     }
   ];
 
