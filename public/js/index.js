@@ -52,6 +52,7 @@ let arrayOfPosts = [];
 let renderPosts = results => {
   arrayOfPosts = [];
   results.forEach(result => {
+    console.log(result);
     let cardbody = $("<div>").addClass(
       "card p-3 shadow-sm p-3  bg-white rounded"
     );

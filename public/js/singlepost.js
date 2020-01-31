@@ -40,7 +40,7 @@ let renderSinglePost = res => {
   let theUser = $("<div>");
 
   $.ajax({
-    url: "/api/users/" + userId,
+    url: "/api/users/" + res.User.id,
     type: "GET"
   }).then(res => {
     theUser.text("Posted by " + res.user_name);

@@ -122,10 +122,17 @@ $(document).on("click", ".homeBtn", event => {
 
 // ARMAN
 //event listener for search button
-$(document).on("click", "#searchBtn", event => {
+$(document).on("click", ".searchBtn", event => {
   event.preventDefault();
 
-  let searchSub = $("#searchSub").val();
+  // let searchSub = $("#searchSub1")
+  // let searchSub = $("#searchSub2")
+
+  if (userIdForButtons) {
+    var searchSub = $("#searchSub1").val();
+  } else {
+    var searchSub = $("#searchSub2").val();
+  }
   console.log(searchSub);
   $.ajax({
     url: "/api/subs/name/" + searchSub,
